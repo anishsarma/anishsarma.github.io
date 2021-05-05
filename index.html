@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Anish Sarma</title>
+    <meta charset="utf-8">
+    <style>
+        body{
+        padding-top:50px;
+        padding-left:100px;
+        padding-right:100px;
+        max-width:1000px;
+        font-family:arial
+        }
+        a{text-decoration: none;color:#0066CD}
+        h1 {
+        font-size:24px;
+        }
+        h2 {
+        font-size:20px;
+        }
+        
+        .content{
+        padding-top:20px;
+        }
+        td{padding:10px;
+        font-weight:normal;
+        text-align:left;
+        vertical-align:top;
+        }
+        th{padding:10px;
+        text-align:left;
+        vertical-align:top;
+        cursor:pointer;
+        }
+
+        .extralist{visibility:collapse}
+    </style>
+</head>
+<body>
+    <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+    <script src="bootstrap-4.0.0-dist/js/d3.min.js?v=3.2.8"></script>
+        <script src="sort-table-master/sort-table.js?v=3.2.8"></script>
+
+    <h1>Anish Sarma</h1>
+    I develop theory, experiments, and technology at the interface of living and engineered systems.
+    The organizing framework is <b>control theory</b>. 
+    Most of my present application efforts are in <b>immune biology</b>. I've also had a long and happy association with neuroscience and neural engineering.
+    <br><br>
+    A list of publications is provided below and at <a href='https://scholar.google.com/citations?user=A_3hMbEAAAAJ&hl=en'>Google Scholar</a>. All of these papers use control theory. 
+    Those that extend or revisit core control theory results are marked as <i>theory</i> papers.
+    <br><br>
+    <div id ='toggleshort' style='font-weight:bold;cursor:pointer;float:left' onclick='toggleExtrasHide()'>Short List</div><div style='float:left'> &nbsp | &nbsp</div><div id ='togglefull' style='font-weight:normal;cursor:pointer;float:none' onclick='toggleExtrasShow()'>Full List</div> 
+    <br>
+        <table class="js-sort-table" id="">
+        <thead>
+        <tr class= 'shortlist'>
+            <th class="">Year</th>
+            <th class="">Title</th>
+            <th class="">Authors</th>
+            <th class="">Venue</th>
+            <th class="">Theory</th>
+            <th class="">Neuro</th>
+            <th class="">Immune</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr class='shortlist'>
+                <td class="paperyear">2015</td>
+                <td class="papertitle"><a href="https://ieeexplore.ieee.org/abstract/document/8814926">Virtual typing by people with tetraplegia using a self-calibrating intracortical brain-computer interface</a></td>
+                <td class="paperauthors">Jarosiewicz, <b>Sarma</b>, et al.</td>
+                <td class="papervenue">Science Translational Medicine</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+            <tr class = 'shortlist'>
+                <td class="paperyear">2015</td>
+                <td class="papertitle"><a href="https://www.nature.com/articles/nm.3953">Clinical translation of a high-performance neural prosthesis</a></td>
+                <td class="paperauthors">Gilja*, Pandarinath*, et al.</td>
+                <td class="papervenue">Nature Medicine</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+
+                <tr class='extralist'>
+                <td class="paperyear">2018</td>
+                <td class="papertitle"><a href="https://iopscience.iop.org/article/10.1088/1741-2552/aa9ee7/meta">Rapid calibration of an intracortical brain-computer interface for people with tetraplegia</a></td>
+                <td class="paperauthors">Brandman et al.</td>
+                <td class="papervenue">J Neural Engineering</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+            <tr class='extralist'>
+                <td class="paperyear">2015</td>
+                <td class="papertitle"><a href="https://elifesciences.org/articles/07436">Neural population dynamics in human motor cortex during movements in people with ALS</a></td>
+                <td class="paperauthors">Pandarinath et al.</td>
+                <td class="papervenue">eLife</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+            <tr class='shortlist'>
+                <td class="paperyear">2018</td>
+                <td class="papertitle"><a href="https://journals.physiology.org/doi/full/10.1152/jn.00493.2017">Stable long-term BCI-enabled communication in ALS and locked-in syndrome using LFP signals</a></td>
+                <td class="paperauthors">Milekovic*, <b>Sarma</b>*, et al.</td>
+                <td class="papervenue">J Neurophysiology</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+
+           <tr class='extralist'>
+                <td class="paperyear">2017</td>
+                <td class="papertitle"><a href="https://www.sciencedirect.com/science/article/pii/S0928425717300104">Retrospectively supervised click decoder calibration for self-calibrating point-and-click brain-computer interfaces</a></td>
+                <td class="paperauthors">Jarosiewicz, <b>Sarma</b>, et al.</td>
+                <td class="papervenue">J Physiology-Paris</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+               <tr class='extralist'>
+                <td class="paperyear">2019</td>
+                <td class="papertitle"><a href="https://journals.physiology.org/doi/full/10.1152/jn.00131.2018">Volitional control of single-electrode high gamma local field potentials by people with paralysis</a></td>
+                <td class="paperauthors">Milekovic et al.</td>
+                <td class="papervenue">J Neurophysiology</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+               <tr class='extralist'>
+                <td class="paperyear">2016</td>
+                <td class="papertitle"><a href="https://ieeexplore.ieee.org/abstract/document/7591394">A modular, closed-loop platform for intracranial stimulation in people with neurological disorders</a></td>
+                <td class="paperauthors"><b>Sarma</b> et al.</td>
+                <td class="papervenue">IEEE EMBS</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+               <tr class='extralist'>
+                <td class="paperyear">2020</td>
+                <td class="papertitle"><a href="https://www.sciencedirect.com/science/article/pii/S1053811920308004">CLoSES: A platform for closed-loop intracranial stimulation in humans</a></td>
+                <td class="paperauthors">Zelmann et al.</td>
+                <td class="papervenue">NeuroImage</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+               <tr class='shortlist'>
+                <td class="paperyear">2020</td>
+                <td class="papertitle"><a href="https://ieeexplore.ieee.org/abstract/document/9147436">Robust performance guarantees for system level synthesis</a></td>
+                <td class="paperauthors">Matni and <b>Sarma</b></td>
+                <td class="papervenue">American Control Conference</td>
+                <td class="flagtheory">&#9679</td>
+                <td class="flagneuro"></td>
+                <td class="flagimmune"></td>
+            </tr>
+               <tr class='shortlist'>
+                <td class="paperyear">2019</td>
+                <td class="papertitle"><a href="https://ieeexplore.ieee.org/abstract/document/8814926">Flexibility and cost-dependence in quantized control</a></td>
+                <td class="paperauthors"><b>Sarma</b> and Doyle</td>
+                <td class="papervenue">American Control Conference</td>
+                <td class="flagtheory">&#9679</td>
+                <td class="flagneuro"></td>
+                <td class="flagimmune"></td>
+            </tr>
+           <tr class='shortlist'>
+                <td class="paperyear">2021</td>
+                <td class="papertitle"><a href="https://www.biorxiv.org/content/10.1101/2021.04.25.441372v1.full">Immune tradeoffs explain SARS-CoV-2 virulence and transmission variation</a></td>
+                <td class="paperauthors"><b>Sarma</b> et al.</td>
+                <td class="papervenue">Preprint - Biorxiv</td>
+                <td class="flagtheory"></td>
+                <td class="flagneuro"></td>
+                <td class="flagimmune">&#9679</td>
+            </tr>
+           <tr class='extralist'>
+                <td class="paperyear">2021</td>
+                <td class="papertitle"><a href="https://arxiv.org/abs/2103.16812">Descending predictive feedback: from optimal control to the sensorimotor system</a></td>
+                <td class="paperauthors">Li, <b>Sarma</b> and Doyle</td>
+                <td class="papervenue">Preprint - Arxiv</td>
+                <td class="flagtheory">&#9679</td>
+                <td class="flagneuro">&#9679</td>
+                <td class="flagimmune"></td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    
+</body>
