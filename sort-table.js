@@ -30,6 +30,8 @@ function toggleExtrasShow() {
         cv[ii].style.visibility = 'visible';
         cv[ii].style.maxHeight = 100000;
         cv[ii].style.display = '';
+        cv[ii].style.opacity = 1;
+
 
     } else {
         //cv[ii].style.visibility = 'collapse';
@@ -49,6 +51,7 @@ function toggleExtrasHide() {
         cv[ii].style.visibility = 'collapse';
         cv[ii].style.maxHeight = 0;
         cv[ii].style.display = 'none';
+        cv[ii].style.opacity = 0;
 
     }
 }
