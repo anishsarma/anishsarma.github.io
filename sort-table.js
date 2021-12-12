@@ -29,7 +29,7 @@ function toggleExtrasShow() {
     if (cv[ii].style.visibility == 'collapse' || cv[ii].style.visibility == '') {
         cv[ii].style.visibility = 'visible';
         cv[ii].style.maxHeight = 100000;
-        cv[ii].style.display = '';
+        cv[ii].style.display = 'table-row';
         cv[ii].style.opacity = 1;
         cv[ii].style.padding = 10px;
         cv[ii].classList.add("shown");
