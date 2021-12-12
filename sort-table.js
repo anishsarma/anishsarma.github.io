@@ -28,6 +28,7 @@ function toggleExtrasShow() {
     console.log(cv[ii].style.visibility)
     if (cv[ii].style.visibility == 'collapse' || cv[ii].style.visibility == '') {
         cv[ii].style.visibility = 'visible';
+        cv[ii].style.maxHeight = 100000px;
     } else {
         //cv[ii].style.visibility = 'collapse';
     }
@@ -44,6 +45,8 @@ function toggleExtrasHide() {
         //cv[ii].style.visibility = 'visible';
     } else {
         cv[ii].style.visibility = 'collapse';
+        cv[ii].style.maxHeight = 0px;
+
     }
 }
 }
