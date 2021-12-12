@@ -32,7 +32,8 @@ function toggleExtrasShow() {
         cv[ii].style.display = '';
         cv[ii].style.opacity = 1;
         cv[ii].style.padding = 10px;
-
+        cv[ii].classList.add("shown");
+        cv[ii].classList.remove("hidden");
 
 
     } else {
@@ -55,6 +56,8 @@ function toggleExtrasHide() {
         cv[ii].style.display = 'none';
         cv[ii].style.opacity = 0;
         cv[ii].style.padding = 0px;
+        cv[ii].classList.add("hidden");
+        cv[ii].classList.remove("shown");
     }
 }
 }
