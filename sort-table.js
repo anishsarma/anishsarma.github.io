@@ -23,7 +23,7 @@ function toggleExtrasShow() {
     document.getElementById('toggleshort').style.fontWeight = 'normal';
     document.getElementById('togglefull').style.fontWeight = 'bold';
 
-    cv = document.getElementsByClassName('extralist');
+    cv = document.querySelectorAll('.extralist');
     for (ii = 0; ii < cv.length; ii++) {
     console.log(cv[ii].style.display)
     if (cv[ii].style.display == 'none') {
@@ -37,7 +37,7 @@ function toggleExtrasHide() {
     document.getElementById('toggleshort').style.fontWeight = 'bold';
     document.getElementById('togglefull').style.fontWeight = 'normal';
 
-    cv = document.getElementsByClassName('extralist');
+    cv = document.querySelectorAll('.extralist');
     for (ii = 0; ii < cv.length; ii++) {
     console.log(cv[ii].style.display)
     if (cv[ii].style.display == 'block' || cv[ii].style.display == '') {
