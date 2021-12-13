@@ -36,9 +36,13 @@ function toggleExtrasShow(listname,boldID) {
         cv[ii].style.display = 'none';
     }
     str = '.' + listname
+    var jj = 0;
     cv = document.querySelectorAll(str);
     for (ii = 0; ii < cv.length; ii++) {
         cv[ii].style.display = 'block';
+        jj = jj + 1;
+        cv[ii].getElementsByClassName('papernum') = jj + '. '
+
     }
 }
 function sortTable(Table, col, dir) {
