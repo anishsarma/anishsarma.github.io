@@ -22,6 +22,11 @@
 function toggleExtrasShow(listname,boldID) {
     document.getElementById('toggleshort').style.fontWeight = 'normal';
     document.getElementById('togglefull').style.fontWeight = 'normal';
+    document.getElementById('togglejournal').style.fontWeight = 'normal';
+    document.getElementById('toggletheory').style.fontWeight = 'normal';
+    document.getElementById('toggleneuro').style.fontWeight = 'normal';
+    document.getElementById('toggleimm').style.fontWeight = 'normal';
+
 
     
     document.getElementById(boldID).style.fontWeight = 'bold';
