@@ -42,7 +42,7 @@ function toggleExtrasShow(listname,boldID) {
         cv[ii].style.display = 'block';
         jj = jj + 1;
         numText = cv[ii].getElementsByClassName('papernum');
-        numText[0].innerText = jj + '.&nbsp&nbsp';
+        numText[0].innerText = jj + '. ';
 
     }
 }
