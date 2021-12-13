@@ -19,19 +19,22 @@
  * @returns void
  */
 
-function toggleExtrasShow() {
+function toggleExtrasShow(listname,boldID) {
     document.getElementById('toggleshort').style.fontWeight = 'normal';
-    document.getElementById('togglefull').style.fontWeight = 'bold';
+    document.getElementById('togglefull').style.fontWeight = 'normal';
+
+    
+    document.getElementById(boldID).style.fontWeight = 'bold';
+    
+    cv = document.querySelectorAll('.paperlist');
+    for (ii = 0; ii < cv.length; ii++) {
+        cv[ii].style.display = 'none';
+    }
 
     cv = document.querySelectorAll('.extralist');
     for (ii = 0; ii < cv.length; ii++) {
-    console.log(cv[ii].style.display)
-    if (cv[ii].style.display == 'none') {
         cv[ii].style.display = 'block';
-
-
     }
-}
 }
 function toggleExtrasHide() {
     document.getElementById('toggleshort').style.fontWeight = 'bold';
@@ -45,7 +48,7 @@ function toggleExtrasHide() {
         cv[ii].style.display = 'none';
 
     }
-}
+    }
 }
 function sortTable(Table, col, dir) {
     var sortClass, i;
