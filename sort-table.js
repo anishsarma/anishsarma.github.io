@@ -41,7 +41,8 @@ function toggleExtrasShow(listname,boldID) {
     for (ii = 0; ii < cv.length; ii++) {
         cv[ii].style.display = 'block';
         jj = jj + 1;
-        cv[ii].getElementsByClassName('papernum') = jj + '. '
+        numText = cv[ii].getElementsByClassName('papernum');
+        numText[0].innerText = jj + '. ';
 
     }
 }
