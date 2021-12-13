@@ -31,7 +31,7 @@ function toggleExtrasShow() {
         cv[ii].style.maxHeight = 100000;
         cv[ii].style.display = 'table-row';
         cv[ii].style.opacity = 1;
-        cv[ii].style.padding = 10px;
+        cv[ii].style.padding = 10;
         cv[ii].classList.add("shown");
         cv[ii].classList.remove("hidden");
 
@@ -55,7 +55,7 @@ function toggleExtrasHide() {
         cv[ii].style.maxHeight = 0;
         cv[ii].style.display = 'none';
         cv[ii].style.opacity = 0;
-        cv[ii].style.padding = 0px;
+        cv[ii].style.padding = 0;
         cv[ii].classList.add("hidden");
         cv[ii].classList.remove("shown");
     }
