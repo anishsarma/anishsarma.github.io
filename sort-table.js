@@ -30,24 +30,10 @@ function toggleExtrasShow(listname,boldID) {
     for (ii = 0; ii < cv.length; ii++) {
         cv[ii].style.display = 'none';
     }
-
-    cv = document.querySelectorAll('.extralist');
+    str = '.' + listname
+    cv = document.querySelectorAll(str);
     for (ii = 0; ii < cv.length; ii++) {
         cv[ii].style.display = 'block';
-    }
-}
-function toggleExtrasHide() {
-    document.getElementById('toggleshort').style.fontWeight = 'bold';
-    document.getElementById('togglefull').style.fontWeight = 'normal';
-
-    cv = document.querySelectorAll('.extralist');
-    for (ii = 0; ii < cv.length; ii++) {
-    console.log(cv[ii].style.display)
-    if (cv[ii].style.display == 'block' || cv[ii].style.display == '') {
-
-        cv[ii].style.display = 'none';
-
-    }
     }
 }
 function sortTable(Table, col, dir) {
