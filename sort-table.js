@@ -25,13 +25,11 @@ function toggleExtrasShow() {
 
     cv = document.getElementsByClassName('extralist');
     for (ii = 0; ii < cv.length; ii++) {
-    console.log(cv[ii].style.visibility)
+    console.log(cv[ii].style.display)
     if (cv[ii].style.display == 'none') {
-        cv[ii].style.visibility = 'block';
+        cv[ii].style.display = 'block';
 
 
-    } else {
-        //cv[ii].style.visibility = 'collapse';
     }
 }
 }
@@ -41,10 +39,10 @@ function toggleExtrasHide() {
 
     cv = document.getElementsByClassName('extralist');
     for (ii = 0; ii < cv.length; ii++) {
-    console.log(cv[ii].style.visibility)
-    if (cv[ii].style.visibility == 'block' || cv[ii].style.visibility == '') {
+    console.log(cv[ii].style.display)
+    if (cv[ii].style.display == 'block' || cv[ii].style.display == '') {
 
-        cv[ii].style.visibility = 'none';
+        cv[ii].style.display = 'none';
 
     }
 }
