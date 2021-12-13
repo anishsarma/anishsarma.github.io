@@ -26,14 +26,8 @@ function toggleExtrasShow() {
     cv = document.getElementsByClassName('extralist');
     for (ii = 0; ii < cv.length; ii++) {
     console.log(cv[ii].style.visibility)
-    if (cv[ii].style.visibility == 'collapse' || cv[ii].style.visibility == '') {
-        cv[ii].style.visibility = 'visible';
-        cv[ii].style.maxHeight = 100000;
-        cv[ii].style.display = 'table-row';
-        cv[ii].style.opacity = 1;
-        cv[ii].style.padding = 10;
-        cv[ii].classList.add("shown");
-        cv[ii].classList.remove("hidden");
+    if (cv[ii].style.display == 'none') {
+        cv[ii].style.visibility = 'block';
 
 
     } else {
@@ -48,16 +42,10 @@ function toggleExtrasHide() {
     cv = document.getElementsByClassName('extralist');
     for (ii = 0; ii < cv.length; ii++) {
     console.log(cv[ii].style.visibility)
-    if (cv[ii].style.visibility == 'collapse' || cv[ii].style.visibility == '') {
-        //cv[ii].style.visibility = 'visible';
-    } else {
-        cv[ii].style.visibility = 'collapse';
-        cv[ii].style.maxHeight = 0;
-        cv[ii].style.display = 'none';
-        cv[ii].style.opacity = 0;
-        cv[ii].style.padding = 0;
-        cv[ii].classList.add("hidden");
-        cv[ii].classList.remove("shown");
+    if (cv[ii].style.visibility == 'block' || cv[ii].style.visibility == '') {
+
+        cv[ii].style.visibility = 'none';
+
     }
 }
 }
