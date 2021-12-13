@@ -61,7 +61,7 @@
             
         </style>
     </head>
-    <body onload="toggleExtrasHide()">
+    <body onload="toggleExtrasShow('shortlist')">
         <script src="bootstrap-4.0.0-dist/js/d3.min.js?v=3.2.8"></script>
         <script src="sort-table.js"></script>
         
@@ -71,7 +71,7 @@
         <br><br>Self-repair in multicellular organisms raises complementary questions in biology and control theory.
         Within biology and bioengineering, I work mostly in immunology and developmental-regenerative biology, though I've also had a long and happy association with neuroscience and neural engineering.
         Within control theory and electrical engineering, I develop mathematical foundations for the design of localized, self-repairing, and sustainable networked systems.
-        <br><br>I'm presently writing my Ph.D. dissertation at Caltech, advised by <a href='http://www.cds.caltech.edu/~doyle/wiki/index.php?title=Main_Page'>John Doyle</a> and informally co-advised by <a href='https://goentoro.caltech.edu/'>Lea Goentoro</a>; previously, I was a staff research engineer with the <a href='https://braingate.org/'>BrainGate</a> clinical trial.
+        <br><br>I'm presently writing my Ph.D. dissertation at Caltech, advised by <a href='http://www.cds.caltech.edu/~doyle/wiki/index.php?title=Main_Page'>John Doyle</a> and informally co-advised by <a href='https://goentoro.caltech.edu/'>Lea Goentoro</a>. Previously, I was a staff research engineer with the <a href='https://braingate.org/'>BrainGate</a> clinical trial.
         <br><br>
         <b>Contact:</b> [first initial] [last name] at caltech dot edu.
         <br><br>
@@ -86,9 +86,9 @@
         <div class="flagimmune" style="float:left">&#9679</div><div>Immunity, Development, and Regeneration</div><div style='clear:left'></div>
         
         <br><br>
-        <div id ='togglefull' style='font-weight:normal;cursor:pointer;float:left' onclick='toggleExtrasShow()'>All Papers</div>
+        <div id ='togglefull' style='font-weight:normal;cursor:pointer;float:left' onclick='toggleExtrasShow("shortlist")'>All Papers</div>
         <div style='float:left'> &nbsp | &nbsp</div>
-        <div id ='toggleshort' style='font-weight:bold;cursor:pointer;float:none' onclick='toggleExtrasHide()'>Selected Papers</div>
+        <div id ='toggleshort' style='font-weight:bold;cursor:pointer;float:none' onclick='toggleExtrasShow("paperlist")'>Selected Papers</div>
 
         <br>
         
