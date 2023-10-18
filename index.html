@@ -13,6 +13,17 @@
         <title>Anish A. Sarma</title>
         <meta charset="utf-8">
        <link rel="stylesheet" href="main.css">
+          .custom-link {
+    color:#537EEE; 
+    cursor: pointer; /* Cursor style for mouseover effect */
+  }
+  .tooltip {
+    display: none;
+    position: absolute;
+    background-color: #FFFFFF;
+    padding: 5px;
+    border: 1px solid gray;
+  }
 <!--         <style>
             body{
             padding-top:10px;
@@ -79,19 +90,33 @@
             }
             
         </style> -->
+        
     </head>
     <body onload="toggleExtrasShow('paperlist','togglefull');">
         <script src="sort-table.js"></script>
+        <script>
+          function showTooltip() {
+            var tooltip = document.getElementById('tooltip');
+            tooltip.style.display = 'block';
+          }
         
+          function hideTooltip() {
+            var tooltip = document.getElementById('tooltip');
+            tooltip.style.display = 'none';
+          }
+        </script>
+
         <h1>Anish A. Sarma</h1>
         I am a <a href = "control.html">control theorist</a>, control engineer, bench biologist, and medical student. I completed a <a href='thesis.html'>Ph.D. at Caltech</a> and an Sc.B. in electrical engineering at Brown. I am currently working towards an M.D. at Vanderbilt. 
-        My work broadly involves developing control theory as a mathematical, experimental, and engineering-design framework for medicine (particularly multicellular, multisystem, and regenerative physiology).
+        My work broadly involves developing control theory as a mathematical, experimental, and engineering-design framework for <span class="custom-link" onmouseover="showTooltip()" onmouseout="hideTooltip()">complex</span> physiology.
+        <div id="tooltip" class="tooltip">(multicellular, layered, regenerative, closed-loop)</div>
         Some examples:
         <ul>
             <li>Fruit flies that partially regenerate limbs after injury [<a href="https://elifesciences.org/articles/65092">1</a>].</li>
             <li>Neural interfaces for people with locked-in syndrome that achieve fast, accurate, and reliable communication [<a href="https://journals.physiology.org/doi/full/10.1152/jn.00493.2017">1</a>,<a href="https://stm.sciencemag.org/content/7/313/313ra179.abstract">2</a>,<a href="https://www.nature.com/articles/nm.3953">3</a>].</li>   
             <li>Theorems and algorithms for the design and analysis of robust and distributed control systems [<a href="https://ieeexplore.ieee.org/abstract/document/9993137">1</a>,<a href="https://ieeexplore.ieee.org/abstract/document/9147436">2</a>,<a href="https://ieeexplore.ieee.org/abstract/document/8814926">3</a>].</li>
         </ul> 
+        
 <!--         <br><br> -->
         <b>Contact:</b> [first name] dot [middle initial] dot [last name] at vanderbilt dot edu.
         <br>
