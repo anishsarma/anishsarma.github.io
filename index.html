@@ -18,11 +18,11 @@
     cursor: pointer; /* Cursor style for mouseover effect */
   }
   .tooltip {
-    display: none;
+    display: hidden;
     position: absolute;
     background-color: #FFFFFF;
     padding: 5px;
-    border: 1px solid gray;
+    border: 5px #000000;
   }
 <!--         <style>
             body{
@@ -95,14 +95,16 @@
     <body onload="toggleExtrasShow('paperlist','togglefull');">
         <script src="sort-table.js"></script>
         <script>
-          function showTooltip() {
-            var tooltip = document.getElementById('tooltip');
-            tooltip.style.display = 'block';
-          }
+  function showTooltip(event) {
+    var tooltip = document.getElementById('tooltip');
+    tooltip.style.display = 'block';
+    tooltip.style.left = event.clientX + 'px';
+    tooltip.style.top = event.clientY + 'px';
+  }
         
           function hideTooltip() {
             var tooltip = document.getElementById('tooltip');
-            tooltip.style.display = 'none';
+            tooltip.style.display = 'hidden';
           }
         </script>
 
