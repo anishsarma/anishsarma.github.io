@@ -109,7 +109,7 @@ function findThresholdForROCPoint(targetFPR, targetTPR, mean1, sd1, mean2, sd2) 
 // Function to update plots
 function updatePlots() {
     const mean1 = parseFloat(d3.select("#mean1").property("value"));
-    const sd1 = parseFloat(d3.select("#sd1").property("value"));
+    const sd1 = parseFloat(d3.select("#sd2").property("value"));
     const mean2 = parseFloat(d3.select("#mean2").property("value"));
     const sd2 = parseFloat(d3.select("#sd2").property("value"));
     const threshold = parseFloat(d3.select("#threshold").property("value"));
