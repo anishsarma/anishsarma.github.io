@@ -22,6 +22,10 @@
     </style>
 </head>
 <body>
+    <h1>Sensitivity and Specificity: A Visual Approach</h1>
+    Sensitivity and specificity are important concepts in understanding the medical literature, especially in interpreting tests. Yet they are often taught without the visual aids and interactivity that helped me get the hang of these essential concepts in my early engineering days. This tool might help. 
+    <br><br>Imagine we have a test that detects some biomarker in two groups, red (test should be positive) and gray (test should be negative). Everything to the right of the line is detected. The amount of red you can get (increasing true positives or increasing sensitivity) without getting gray (increasing false positives or decreasing specificity) is determined by how wide the distributions are and how far apart they are.
+    <br><br>So while it is true that sensitivity and specificity trade off for a given distribution based on where we set the detection line, a new test can be both more sensitive and more specific than an old test. 
     <div class="controls">
         
         <label>Mean 1 <input type="number" id="mean1" value="2"> Standard Deviation 1<input type="number" id="sd1" value="1"></label>
@@ -31,7 +35,6 @@
         <label><input style='display:none' type="range" id="threshold" min="-50" max="50" step="0.1" value="1"></label>
 <!--         <button id="toggleAxis">Toggle FPR/Specificity</button> -->
     </div>
-        Everything to the right of the line is detected. The amount of red you can get (increasing true positives or increasing sensitivity) without getting gray (increasing false positives or decreasing specificity) is determined by how wide the distributions are and how far apart they are.
   <div class="plot-container">
         <div id="distributionPlot" class="plot"></div>
     </div>
