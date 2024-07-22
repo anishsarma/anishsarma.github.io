@@ -310,32 +310,32 @@ updateThresholdPosition(xScale(threshold));
         .attr("cx", rocXScale(Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr))))
         .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
         .attr("r", 10)
-        .attr("fill", "#0080FE")
-        // .attr("cursor", "pointer")
+        .attr("fill", "#007fFf")
+        .attr("cursor", "pointer")
         .on("mouseover", function() {
-            d3.select(this).attr("r", 10);
+            d3.select(this).attr("r", 12);
         })
         .on("mouseout", function() {
             d3.select(this).attr("r", 10);
         });
 
     // // Make ROC curve interactive
-    // rocSvg.append("rect")
-    //     .attr("width", width)
-    //     .attr("height", height)
-    //     .attr("fill", "none")
-    //     .attr("pointer-events", "all")
-    //     .on("click", function(event) {
-    //         const [x, y] = d3.pointer(event);
-    //         const newFPR = rocXScale.invert(x);
-    //         const newTPR = rocYScale.invert(y);
+    rocSvg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", "none")
+        .attr("pointer-events", "all")
+        .on("click", function(event) {
+            const [x, y] = d3.pointer(event);
+            const newFPR = rocXScale.invert(x);
+            const newTPR = rocYScale.invert(y);
             
-    //         // Find the threshold that corresponds to this point on the ROC curve
-    //         const newThreshold = findThresholdForROCPoint(newFPR, newTPR, mean1, sd1, mean2, sd2);
+            // Find the threshold that corresponds to this point on the ROC curve
+            const newThreshold = findThresholdForROCPoint(newFPR, newTPR, mean1, sd1, mean2, sd2);
             
-    //         d3.select("#threshold").property("value", newThreshold);
-    //         updatePlots();
-    //     });
+            d3.select("#threshold").property("value", newThreshold);
+            updatePlots();
+        });
 
     // Update x-axis label
     rocSvg.select(".x-label")
