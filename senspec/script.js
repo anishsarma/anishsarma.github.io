@@ -69,7 +69,7 @@ rocSvg.append("text")
 rocSvg.append("text")
     .attr("text-anchor", "middle")
     .attr("transform", `translate(${-margin.left + 15},${height/2}) rotate(-90)`)
-    .text("True Positive Rate (Sensitivity)");
+    .text("Sensitivity (True Positive Rate)");
 
 // Function to calculate normal distribution
 function normalDist(x, mean, sd) {
