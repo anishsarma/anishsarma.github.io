@@ -311,9 +311,9 @@ updateThresholdPosition(xScale(threshold));
         .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
         .attr("r", 10)
         .attr("fill", "#007fFf")
-        .attr("cursor", "pointer")
+        // .attr("cursor", "pointer")
         .on("mouseover", function() {
-            d3.select(this).attr("r", 12);
+            d3.select(this).attr("r", 10);
         })
         .on("mouseout", function() {
             d3.select(this).attr("r", 10);
