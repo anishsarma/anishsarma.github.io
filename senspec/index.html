@@ -36,7 +36,7 @@
     <h1>Sensitivity and Specificity: A Visual Approach</h1>
     Sensitivity and specificity are essential concepts in understanding diagnostic testing, yet they can be challenging for medical students to master.
     The way I learned this material as an engineer was more visual and interactive, so I made a little demo to capture some of that intuition.
-    <br><br>Let's say we have a test that detects some biomarker in two groups, red (has phenotype, test should be positive) and gray (does not have phenotype, test should be negative). 
+    <br><br>Let's say we have a test that detects some biomarker in two groups, red and gray. There will be some measurement noise and some within-group variation in the biomarker level.
     In the plot showing two normal distributions below, everything to the right of the line is detected. The amount of red we can get (increasing true positives or increasing sensitivity) without getting gray (increasing false positives or decreasing specificity) is determined by how wide the distributions are and how far apart they are.
     <br><br>We often contrast tests that are high in sensitivity (and low in specificity) with tests that are high in specificity (and low in sensitivity). This is a fair contrast insofar as, for a given pair of distributions, moving the detection line around will trade sensitivity for specicifity. However, a new test might improve on the old test by changing the distributions of measurements, so a new test can be both more sensitive and more specific than an old test. 
     <br><br>Try it yourself! Move the detection line around below, or change the noisiness to make the problem easier or harder. (I'm working on making the buttons and plots look nicer.)
