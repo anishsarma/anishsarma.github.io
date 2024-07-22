@@ -150,7 +150,7 @@ function updatePlots() {
         .datum(dist1Data)
         .attr("class", "dist1")
         .attr("fill", "none")
-        .attr("stroke", "gray")
+        .attr("stroke", "red")
         .attr("stroke-width", 2)
         .attr("d", line);
 
@@ -158,7 +158,7 @@ function updatePlots() {
         .datum(dist2Data)
         .attr("class", "dist2")
         .attr("fill", "none")
-        .attr("stroke", "red")
+        .attr("stroke", "gray")
         .attr("stroke-width", 2)
         .attr("d", line);
 
