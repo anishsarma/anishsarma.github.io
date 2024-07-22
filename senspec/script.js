@@ -130,17 +130,29 @@ function updatePlots() {
         .attr("stroke-width", 2)
         .attr("d", line);
 
-    // Draw threshold line
     distributionSvg.selectAll(".threshold").remove();
-    distributionSvg.append("line")
+    const thresholdLine = distributionSvg.append("line")
         .attr("class", "threshold")
         .attr("x1", xScale(threshold))
         .attr("y1", 0)
         .attr("x2", xScale(threshold))
         .attr("y2", height)
         .attr("stroke", "green")
-        .attr("stroke-width", 2);
-
+        .attr("stroke-width", 2)
+        .attr("cursor", "ew-resize")
+        .on("mouseover", function() {
+            d3.select(this).attr("stroke-width", 4);
+        })
+        .on("mouseout", function() {
+            d3.select(this).attr("stroke-width", 2);
+        })
+        .call(d3.drag()
+            .on("drag", function(event) {
+                const newThreshold = xScale.invert(event.x);
+                d3.select("#threshold").property("value", newThreshold);
+                updatePlots();
+            })
+        );
     // Calculate ROC curve
     const rocPoints = d3.range(xMin, xMax, 0.1).map(t => {
         const {tpr, fpr} = calculateRates(t, mean1, sd1, mean2, sd2);
@@ -170,11 +182,59 @@ function updatePlots() {
         .attr("cx", rocXScale(Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr))))
         .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
         .attr("r", 5)
-        .attr("fill", "green");
+        .attr("fill", "green")
+        .attr("cursor", "pointer")
+        .on("mouseover", function() {
+            d3.select(this).attr("r", 7);
+        })
+        .on("mouseout", function() {
+            d3.select(this).attr("r", 5);
+        });
+
+    // Make ROC curve interactive
+    rocSvg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+        .attr("fill", "none")
+        .attr("pointer-events", "all")
+        .on("click", function(event) {
+            const [x, y] = d3.pointer(event);
+            const newFPR = rocXScale.invert(x);
+            const newTPR = rocYScale.invert(y);
+            
+            // Find the threshold that corresponds to this point on the ROC curve
+            const newThreshold = findThresholdForROCPoint(newFPR, newTPR, mean1, sd1, mean2, sd2);
+            
+            d3.select("#threshold").property("value", newThreshold);
+            updatePlots();
+        });
+
 
     // Update x-axis label
     rocSvg.select(".x-label")
         .text(showFPR ? "False Positive Rate" : "Specificity");
+}
+// Function to find the threshold for a given point on the ROC curve
+function findThresholdForROCPoint(targetFPR, targetTPR, mean1, sd1, mean2, sd2) {
+    let low = Math.min(mean1 - 3*sd1, mean2 - 3*sd2);
+    let high = Math.max(mean1 + 3*sd1, mean2 + 3*sd2);
+    
+    while (high - low > 0.01) {
+        const mid = (low + high) / 2;
+        const {tpr, fpr} = calculateRates(mid, mean1, sd1, mean2, sd2);
+        
+        if (Math.abs(tpr - targetTPR) + Math.abs(fpr - targetFPR) < 0.01) {
+            return mid;
+        }
+        
+        if (tpr > targetTPR) {
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+    
+    return (low + high) / 2;
 }
 
 // Add event listeners
