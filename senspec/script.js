@@ -339,7 +339,7 @@ updateThresholdPosition(xScale(threshold));
 
     // Update x-axis label
     rocSvg.select(".x-label")
-        .text(showFPR ? "False Positive Rate (Click for Specificity)" : "Specificity (Click for False Positive Rate)");
+        .text(showFPR ? "False Positive Rate (1-Specificity, Click to Swap)" : "Specificity (1-False Positive Rate, Click to Swap)");
 }
 
 // Add event listeners
