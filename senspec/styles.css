@@ -84,3 +84,12 @@ button:hover {
 .rocPoint {
     cursor: pointer;
 }
+
+.x-label {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.x-label:hover {
+    text-decoration: underline;
+}
