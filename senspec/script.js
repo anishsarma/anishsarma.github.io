@@ -123,7 +123,7 @@ function updatePlots() {
     xScale.domain([xMin, xMax]);
 
     // Generate distribution data
-    const points = d3.range(xMin, xMax, 0.1);
+    const points = d3.range(xMin, xMax, 0.01);
     const dist1Data = points.map(x => ({x, y: normalDist(x, mean1, sd1)}));
     const dist2Data = points.map(x => ({x, y: normalDist(x, mean2, sd2)}));
 
@@ -185,7 +185,7 @@ function updatePlots() {
         );
 
     // Calculate ROC curve
-    const rocPoints = d3.range(xMin, xMax, 0.1).map(t => {
+    const rocPoints = d3.range(xMin, xMax, 0.01).map(t => {
         const {tpr, fpr} = calculateRates(t, mean1, sd1, mean2, sd2);
         return {
             x: Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr)),
