@@ -213,8 +213,8 @@ function updatePlots() {
         .attr("class", "rocPoint")
         .attr("cx", rocXScale(Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr))))
         .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
-        .attr("r", 5)
-        .attr("fill", "#15A3C7")
+        .attr("r", 10)
+        .attr("fill", "#0080FE")
         .attr("cursor", "pointer")
         .on("mouseover", function() {
             d3.select(this).attr("r", 7);
