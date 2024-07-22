@@ -171,10 +171,10 @@ function updatePlots() {
         .attr("stroke-width", 4)
         .attr("cursor", "ew-resize")
         .on("mouseover", function() {
-            d3.select(this).attr("stroke-width", 4);
+            d3.select(this).attr("stroke-width", 6);
         })
         .on("mouseout", function() {
-            d3.select(this).attr("stroke-width", 2);
+            d3.select(this).attr("stroke-width", 4);
         })
         .call(d3.drag()
             .on("drag", function(event) {
