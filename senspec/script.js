@@ -1,5 +1,5 @@
 const margin = {top: 20, right: 20, bottom: 40, left: 40};
-const width = 400 - margin.left - margin.right;
+const width = 760 - margin.left - margin.right;  // Adjusted for full width
 const height = 400 - margin.top - margin.bottom;
 
 let showFPR = true;
@@ -252,6 +252,9 @@ d3.select("#toggleAxis").on("click", () => {
     showFPR = !showFPR;
     updatePlots();
 });
-
+// Update SVG sizes
+d3.selectAll(".plot svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
 // Initial plot rendering
 updatePlots();
