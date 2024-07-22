@@ -199,7 +199,7 @@ function updatePlots() {
         .datum(rocPoints)
         .attr("class", "roc")
         .attr("fill", "none")
-        .attr("stroke", "purple")
+        .attr("stroke", "black")
         .attr("stroke-width", 2)
         .attr("d", d3.line()
             .x(d => rocXScale(d.x))
