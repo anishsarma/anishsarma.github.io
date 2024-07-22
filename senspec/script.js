@@ -69,11 +69,14 @@ function normalDist(x, mean, sd) {
 
 // Function to calculate TPR and FPR
 function calculateRates(threshold, mean1, sd1, mean2, sd2) {
-    const tpr = 1 - math.erf((threshold - mean2) / (Math.sqrt(2) * sd2));
-    const fpr = 1 - math.erf((threshold - mean1) / (Math.sqrt(2) * sd1));
+    // For TPR, we want P(X >= threshold | X ~ N(mean2, sd2^2))
+    const tpr = 1 - math.erf((threshold - mean2) / (Math.sqrt(2) * sd2)) / 2;
+    
+    // For FPR, we want P(X >= threshold | X ~ N(mean1, sd1^2))
+    const fpr = 1 - math.erf((threshold - mean1) / (Math.sqrt(2) * sd1)) / 2;
+    
     return {tpr, fpr};
 }
-
 // Function to update plots
 function updatePlots() {
     const mean1 = parseFloat(d3.select("#mean1").property("value"));
@@ -141,7 +144,10 @@ function updatePlots() {
     // Calculate ROC curve
     const rocPoints = d3.range(xMin, xMax, 0.1).map(t => {
         const {tpr, fpr} = calculateRates(t, mean1, sd1, mean2, sd2);
-        return {x: showFPR ? fpr : 1 - fpr, y: tpr};
+        return {
+            x: Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr)),
+            y: Math.max(0, Math.min(1, tpr))
+        };
     });
 
     // Draw ROC curve
@@ -157,13 +163,12 @@ function updatePlots() {
             .y(d => rocYScale(d.y))
         );
 
-    // Draw current point on ROC curve
     const {tpr, fpr} = calculateRates(threshold, mean1, sd1, mean2, sd2);
     rocSvg.selectAll(".rocPoint").remove();
     rocSvg.append("circle")
         .attr("class", "rocPoint")
-        .attr("cx", rocXScale(showFPR ? fpr : 1 - fpr))
-        .attr("cy", rocYScale(tpr))
+        .attr("cx", rocXScale(Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr))))
+        .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
         .attr("r", 5)
         .attr("fill", "green");
 
