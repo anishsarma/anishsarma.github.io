@@ -302,22 +302,22 @@ updateThresholdPosition(xScale(threshold));
             .y(d => rocYScale(d.y))
         );
 
-    // // Draw current point on ROC curve (now interactive)
-    // const {tpr, fpr} = calculateRates(threshold, mean1, sd1, mean2, sd2);
-    // rocSvg.selectAll(".rocPoint").remove();
-    // rocSvg.append("circle")
-    //     .attr("class", "rocPoint")
-    //     .attr("cx", rocXScale(Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr))))
-    //     .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
-    //     .attr("r", 10)
-    //     .attr("fill", "#007fFf")
-    //     .attr("cursor", "pointer")
-    //     .on("mouseover", function() {
-    //         d3.select(this).attr("r", 12);
-    //     })
-    //     .on("mouseout", function() {
-    //         d3.select(this).attr("r", 10);
-    //     });
+    // Draw current point on ROC curve (now interactive)
+    const {tpr, fpr} = calculateRates(threshold, mean1, sd1, mean2, sd2);
+    rocSvg.selectAll(".rocPoint").remove();
+    rocSvg.append("circle")
+        .attr("class", "rocPoint")
+        .attr("cx", rocXScale(Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr))))
+        .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
+        .attr("r", 10)
+        .attr("fill", "#007fFf")
+        .attr("cursor", "pointer")
+        .on("mouseover", function() {
+            d3.select(this).attr("r", 12);
+        })
+        .on("mouseout", function() {
+            d3.select(this).attr("r", 10);
+        });
 
     // // // Make ROC curve interactive
     // rocSvg.append("rect")
