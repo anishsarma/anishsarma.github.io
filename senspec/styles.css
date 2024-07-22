@@ -73,3 +73,11 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.threshold {
+    cursor: ew-resize;
+}
+
+.rocPoint {
+    cursor: pointer;
+}
