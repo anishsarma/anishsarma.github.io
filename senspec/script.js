@@ -69,14 +69,34 @@ function normalDist(x, mean, sd) {
 
 // Function to calculate TPR and FPR
 function calculateRates(threshold, mean1, sd1, mean2, sd2) {
-    // For TPR, we want P(X >= threshold | X ~ N(mean2, sd2^2))
     const tpr = 1 - math.erf((threshold - mean2) / (Math.sqrt(2) * sd2)) / 2;
-    
-    // For FPR, we want P(X >= threshold | X ~ N(mean1, sd1^2))
     const fpr = 1 - math.erf((threshold - mean1) / (Math.sqrt(2) * sd1)) / 2;
-    
     return {tpr, fpr};
 }
+
+// Function to find the threshold for a given point on the ROC curve
+function findThresholdForROCPoint(targetFPR, targetTPR, mean1, sd1, mean2, sd2) {
+    let low = Math.min(mean1 - 3*sd1, mean2 - 3*sd2);
+    let high = Math.max(mean1 + 3*sd1, mean2 + 3*sd2);
+    
+    while (high - low > 0.01) {
+        const mid = (low + high) / 2;
+        const {tpr, fpr} = calculateRates(mid, mean1, sd1, mean2, sd2);
+        
+        if (Math.abs(tpr - targetTPR) + Math.abs(fpr - targetFPR) < 0.01) {
+            return mid;
+        }
+        
+        if (tpr > targetTPR) {
+            low = mid;
+        } else {
+            high = mid;
+        }
+    }
+    
+    return (low + high) / 2;
+}
+
 // Function to update plots
 function updatePlots() {
     const mean1 = parseFloat(d3.select("#mean1").property("value"));
@@ -130,6 +150,7 @@ function updatePlots() {
         .attr("stroke-width", 2)
         .attr("d", line);
 
+    // Draw threshold line (now draggable)
     distributionSvg.selectAll(".threshold").remove();
     const thresholdLine = distributionSvg.append("line")
         .attr("class", "threshold")
@@ -153,6 +174,7 @@ function updatePlots() {
                 updatePlots();
             })
         );
+
     // Calculate ROC curve
     const rocPoints = d3.range(xMin, xMax, 0.1).map(t => {
         const {tpr, fpr} = calculateRates(t, mean1, sd1, mean2, sd2);
@@ -175,6 +197,7 @@ function updatePlots() {
             .y(d => rocYScale(d.y))
         );
 
+    // Draw current point on ROC curve (now interactive)
     const {tpr, fpr} = calculateRates(threshold, mean1, sd1, mean2, sd2);
     rocSvg.selectAll(".rocPoint").remove();
     rocSvg.append("circle")
@@ -209,32 +232,9 @@ function updatePlots() {
             updatePlots();
         });
 
-
     // Update x-axis label
     rocSvg.select(".x-label")
         .text(showFPR ? "False Positive Rate" : "Specificity");
-}
-// Function to find the threshold for a given point on the ROC curve
-function findThresholdForROCPoint(targetFPR, targetTPR, mean1, sd1, mean2, sd2) {
-    let low = Math.min(mean1 - 3*sd1, mean2 - 3*sd2);
-    let high = Math.max(mean1 + 3*sd1, mean2 + 3*sd2);
-    
-    while (high - low > 0.01) {
-        const mid = (low + high) / 2;
-        const {tpr, fpr} = calculateRates(mid, mean1, sd1, mean2, sd2);
-        
-        if (Math.abs(tpr - targetTPR) + Math.abs(fpr - targetFPR) < 0.01) {
-            return mid;
-        }
-        
-        if (tpr > targetTPR) {
-            low = mid;
-        } else {
-            high = mid;
-        }
-    }
-    
-    return (low + high) / 2;
 }
 
 // Add event listeners
