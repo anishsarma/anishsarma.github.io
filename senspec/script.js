@@ -183,7 +183,7 @@ const thresholdLine = thresholdGroup.append("line")
     .attr("y1", 0)
     .attr("x2", xScale(threshold))
     .attr("y2", height)
-    .attr("stroke", "green")
+    .attr("stroke", "black")
     .attr("stroke-width", 2);
 
 // Add a handle to the threshold line
@@ -192,7 +192,7 @@ const thresholdHandle = thresholdGroup.append("circle")
     .attr("cx", xScale(threshold))
     .attr("cy", height / 2)
     .attr("r", 8)
-    .attr("fill", "green");
+    .attr("fill", "#007fff");
 
 // Function to update threshold position
 function updateThresholdPosition(newX) {
