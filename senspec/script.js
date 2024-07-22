@@ -55,7 +55,12 @@ rocSvg.append("text")
     .attr("text-anchor", "middle")
     .attr("x", width / 2)
     .attr("y", height + margin.bottom - 5)
-    .text("False Positive Rate");
+    .text("False Positive Rate")
+    .style("cursor", "pointer")  // Add cursor style
+    .on("click", function() {    // Add click event
+        showFPR = !showFPR;
+        updatePlots();
+    });
 
 rocSvg.append("text")
     .attr("text-anchor", "middle")
