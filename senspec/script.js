@@ -147,7 +147,7 @@ function updatePlots() {
         .datum(dist1Data)
         .attr("class", "dist1")
         .attr("fill", "none")
-        .attr("stroke", "blue")
+        .attr("stroke", "gray")
         .attr("stroke-width", 2)
         .attr("d", line);
 
@@ -167,8 +167,8 @@ function updatePlots() {
         .attr("y1", 0)
         .attr("x2", xScale(threshold))
         .attr("y2", height)
-        .attr("stroke", "green")
-        .attr("stroke-width", 2)
+        .attr("stroke", "black")
+        .attr("stroke-width", 4)
         .attr("cursor", "ew-resize")
         .on("mouseover", function() {
             d3.select(this).attr("stroke-width", 4);
