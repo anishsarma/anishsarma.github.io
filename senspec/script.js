@@ -224,22 +224,22 @@ function updatePlots() {
         });
 
     // Make ROC curve interactive
-    rocSvg.append("rect")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("fill", "none")
-        .attr("pointer-events", "all")
-        .on("click", function(event) {
-            const [x, y] = d3.pointer(event);
-            const newFPR = rocXScale.invert(x);
-            const newTPR = rocYScale.invert(y);
+    // rocSvg.append("rect")
+    //     .attr("width", width)
+    //     .attr("height", height)
+    //     .attr("fill", "none")
+    //     .attr("pointer-events", "all")
+    //     .on("click", function(event) {
+    //         const [x, y] = d3.pointer(event);
+    //         const newFPR = rocXScale.invert(x);
+    //         const newTPR = rocYScale.invert(y);
             
-            // Find the threshold that corresponds to this point on the ROC curve
-            const newThreshold = findThresholdForROCPoint(newFPR, newTPR, mean1, sd1, mean2, sd2);
+    //         // Find the threshold that corresponds to this point on the ROC curve
+    //         const newThreshold = findThresholdForROCPoint(newFPR, newTPR, mean1, sd1, mean2, sd2);
             
-            d3.select("#threshold").property("value", newThreshold);
-            updatePlots();
-        });
+    //         d3.select("#threshold").property("value", newThreshold);
+    //         updatePlots();
+    //     });
 
     // Update x-axis label
     rocSvg.select(".x-label")
