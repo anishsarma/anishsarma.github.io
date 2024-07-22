@@ -214,7 +214,7 @@ function updatePlots() {
         .attr("cx", rocXScale(Math.max(0, Math.min(1, showFPR ? fpr : 1 - fpr))))
         .attr("cy", rocYScale(Math.max(0, Math.min(1, tpr))))
         .attr("r", 5)
-        .attr("fill", "green")
+        .attr("fill", "blue")
         .attr("cursor", "pointer")
         .on("mouseover", function() {
             d3.select(this).attr("r", 7);
