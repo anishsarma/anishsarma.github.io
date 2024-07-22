@@ -3,6 +3,9 @@ const size = 440; // Size of the square plot (including margins)
 const width = 440 - margin.left - margin.right;  // Adjusted for full width
 const height = 400 - margin.top - margin.bottom;
 
+// Add these variables at the top of your script
+let currentThreshold;
+let isUpdating = false;
 let showFPR = true;
 
 // Create SVG elements for both plots
@@ -159,6 +162,12 @@ function updatePlots() {
         .attr("stroke-width", 2)
         .attr("d", line);
 
+// Add these variables at the top of your script
+let currentThreshold;
+let isUpdating = false;
+
+// In the updatePlots function, replace the threshold line drawing code with this:
+
 // Remove existing threshold elements
 distributionSvg.selectAll(".threshold, .threshold-handle, .threshold-touch-area").remove();
 
@@ -170,7 +179,7 @@ const thresholdGroup = distributionSvg.append("g")
 // Add an invisible, wider touch area
 thresholdGroup.append("rect")
     .attr("class", "threshold-touch-area")
-    .attr("x", xScale(threshold) - 15)
+    .attr("x", -15)
     .attr("y", 0)
     .attr("width", 30)
     .attr("height", height)
@@ -179,28 +188,55 @@ thresholdGroup.append("rect")
 // Draw the threshold line
 const thresholdLine = thresholdGroup.append("line")
     .attr("class", "threshold")
-    .attr("x1", xScale(threshold))
+    .attr("x1", 0)
     .attr("y1", 0)
-    .attr("x2", xScale(threshold))
+    .attr("x2", 0)
     .attr("y2", height)
-    .attr("stroke", "black")
+    .attr("stroke", "green")
     .attr("stroke-width", 2);
 
 // Add a handle to the threshold line
 const thresholdHandle = thresholdGroup.append("circle")
     .attr("class", "threshold-handle")
-    .attr("cx", xScale(threshold))
+    .attr("cx", 0)
     .attr("cy", height / 2)
     .attr("r", 8)
-    .attr("fill", "#007fff");
+    .attr("fill", "green");
+
+currentThreshold = threshold;
 
 // Function to update threshold position
 function updateThresholdPosition(newX) {
     const newThreshold = Math.max(xMin, Math.min(xMax, xScale.invert(newX)));
-    d3.select("#threshold").property("value", newThreshold);
-    thresholdGroup.attr("transform", `translate(${xScale(newThreshold) - xScale(threshold)}, 0)`);
-    updatePlots();
+    currentThreshold = newThreshold;
+    requestAnimationFrame(() => {
+        thresholdGroup.attr("transform", `translate(${xScale(newThreshold)}, 0)`);
+        d3.select("#thresholdValue").text(newThreshold.toFixed(2));
+    });
 }
+
+// Debounce function
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Debounced update function
+const debouncedUpdate = debounce(() => {
+    if (!isUpdating) {
+        isUpdating = true;
+        d3.select("#threshold").property("value", currentThreshold);
+        updatePlots();
+        isUpdating = false;
+    }
+}, 100);
 
 // Add both mouse and touch event listeners
 const drag = d3.drag()
@@ -210,10 +246,13 @@ const drag = d3.drag()
     })
     .on("drag", function(event) {
         updateThresholdPosition(event.x);
+        debouncedUpdate();
     })
     .on("end", function() {
         thresholdLine.attr("stroke-width", 2);
         thresholdHandle.attr("r", 8);
+        d3.select("#threshold").property("value", currentThreshold);
+        updatePlots();
     });
 
 thresholdGroup.call(drag);
@@ -229,11 +268,17 @@ thresholdGroup
         const touch = event.touches[0];
         const newX = touch.clientX - distributionSvg.node().getBoundingClientRect().left;
         updateThresholdPosition(newX);
+        debouncedUpdate();
     })
     .on("touchend", function() {
         thresholdLine.attr("stroke-width", 2);
         thresholdHandle.attr("r", 8);
+        d3.select("#threshold").property("value", currentThreshold);
+        updatePlots();
     });
+
+// Update threshold position initially
+updateThresholdPosition(xScale(threshold));
 
     // Calculate ROC curve
     const rocPoints = d3.range(xMin, xMax, 0.01).map(t => {
