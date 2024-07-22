@@ -38,7 +38,7 @@
     Sensitivity and specificity are essential concepts in diagnostic testing, but they can be challenging to understand.
     The way I learned these concepts as an engineer was more visual and interactive than the way I learned them in medicine, so I made a little demo to capture some of that intuition.
     <br><br>
-    Let's say we have a test that detects some biomarker in two groups, red and gray. There will be some measurement noise and some within-group variation in the biomarker level, so there will be a red distribution and a gray distribution, as shown in the figure below.
+    Let's say we have a test that detects some biomarker in two groups, red and gray. The biomarker is generally higher in the red group, but there will be some measurement noise and some within-group variation, so there will be a red distribution and a gray distribution as shown in the figure below.
     <br><br>
         We often contrast tests that are high in sensitivity (and low in specificity) with tests that are high in specificity (and low in sensitivity). This is a fair contrast insofar as, for a given pair of distributions, moving the detection threshold around will trade sensitivity for specificity. However, a new test might improve on the old test by changing the distributions themselves, so a new test can be both more sensitive and more specific than an old test. 
     <br><br>Try it yourself! Move the detection threshold around, or change the noisiness. Everything to the <b>right</b> of the line is detected. I'm working on making the buttons and plots look nicer, but this was fun to quickly protoype.
