@@ -1,6 +1,7 @@
 const margin = {top: 20, right: 20, bottom: 40, left: 40};
-const width = 760 - margin.left - margin.right;  // Adjusted for full width
-const height = 400 - margin.top - margin.bottom;
+const size = 440; // Size of the square plot (including margins)
+const width = size - margin.left - margin.right;
+const height = size - margin.top - margin.bottom;
 
 let showFPR = true;
 
