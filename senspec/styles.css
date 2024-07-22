@@ -59,3 +59,11 @@ input[type="number"] {
 .x-label:hover {
     text-decoration: underline;
 }
+.threshold-touch-area {
+    cursor: ew-resize;
+}
+
+.threshold-handle {
+    cursor: ew-resize;
+    touch-action: none;
+}
