@@ -6,7 +6,7 @@ const height = 400 - margin.top - margin.bottom;
 // Add these variables at the top of your script
 let currentThreshold;
 let isUpdating = false;
-let showFPR = true;
+let showFPR = false;
 
 // Create SVG elements for both plots
 const distributionSvg = d3.select("#distributionPlot")
@@ -79,10 +79,10 @@ function normalDist(x, mean, sd) {
 // Function to calculate TPR and FPR
 function calculateRates(threshold, mean1, sd1, mean2, sd2) {
     // For TPR, we want P(X > threshold | X ~ N(mean2, sd2^2))
-    const tpr = 0.5 + math.erf((threshold - mean2) / (Math.sqrt(2) * sd2)) / 2;
+    const tpr = 0.5 - math.erf((threshold - mean2) / (Math.sqrt(2) * sd2)) / 2;
     
     // For FPR, we want P(X > threshold | X ~ N(mean1, sd1^2))
-    const fpr = 0.5 + math.erf((threshold - mean1) / (Math.sqrt(2) * sd1)) / 2;
+    const fpr = 0.5 - math.erf((threshold - mean1) / (Math.sqrt(2) * sd1)) / 2;
         return {tpr, fpr};
 }
 
