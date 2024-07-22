@@ -65,7 +65,7 @@ rocSvg.append("text")
 rocSvg.append("text")
     .attr("text-anchor", "middle")
     .attr("transform", `translate(${-margin.left + 15},${height/2}) rotate(-90)`)
-    .text("True Positive Rate");
+    .text("True Positive Rate (Sensitivity)");
 
 // Function to calculate normal distribution
 function normalDist(x, mean, sd) {
@@ -239,7 +239,7 @@ function updatePlots() {
 
     // Update x-axis label
     rocSvg.select(".x-label")
-        .text(showFPR ? "False Positive Rate" : "Specificity");
+        .text(showFPR ? "False Positive Rate (Click for Specificity)" : "Specificity (Click for False Positive Rate)");
 }
 
 // Add event listeners
