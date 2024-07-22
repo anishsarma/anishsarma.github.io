@@ -75,9 +75,12 @@ function normalDist(x, mean, sd) {
 
 // Function to calculate TPR and FPR
 function calculateRates(threshold, mean1, sd1, mean2, sd2) {
-    const tpr = .5 - math.erf((threshold - mean2) / (Math.sqrt(2) * sd2)) / 2;
-    const fpr = .5 - math.erf((threshold - mean1) / (Math.sqrt(2) * sd1)) / 2;
-    return {tpr, fpr};
+    // For TPR, we want P(X > threshold | X ~ N(mean2, sd2^2))
+    const tpr = 0.5 + math.erf((threshold - mean2) / (Math.sqrt(2) * sd2)) / 2;
+    
+    // For FPR, we want P(X > threshold | X ~ N(mean1, sd1^2))
+    const fpr = 0.5 + math.erf((threshold - mean1) / (Math.sqrt(2) * sd1)) / 2;
+        return {tpr, fpr};
 }
 
 // Function to find the threshold for a given point on the ROC curve
