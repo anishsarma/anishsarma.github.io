@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 800px;  /* Adjusted for single-column layout */
+    max-width: 500px;  /* Adjusted for square plots */
     margin: 0 auto;
     background-color: white;
     padding: 20px;
