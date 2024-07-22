@@ -159,30 +159,81 @@ function updatePlots() {
         .attr("stroke-width", 2)
         .attr("d", line);
 
-    // Draw threshold line (now draggable)
-    distributionSvg.selectAll(".threshold").remove();
-    const thresholdLine = distributionSvg.append("line")
-        .attr("class", "threshold")
-        .attr("x1", xScale(threshold))
-        .attr("y1", 0)
-        .attr("x2", xScale(threshold))
-        .attr("y2", height)
-        .attr("stroke", "black")
-        .attr("stroke-width", 4)
-        .attr("cursor", "ew-resize")
-        .on("mouseover", function() {
-            d3.select(this).attr("stroke-width", 6);
-        })
-        .on("mouseout", function() {
-            d3.select(this).attr("stroke-width", 4);
-        })
-        .call(d3.drag()
-            .on("drag", function(event) {
-                const newThreshold = xScale.invert(event.x);
-                d3.select("#threshold").property("value", newThreshold);
-                updatePlots();
-            })
-        );
+// Remove existing threshold elements
+distributionSvg.selectAll(".threshold, .threshold-handle, .threshold-touch-area").remove();
+
+// Create a group for the threshold elements
+const thresholdGroup = distributionSvg.append("g")
+    .attr("class", "threshold-group")
+    .attr("cursor", "ew-resize");
+
+// Add an invisible, wider touch area
+thresholdGroup.append("rect")
+    .attr("class", "threshold-touch-area")
+    .attr("x", xScale(threshold) - 15)
+    .attr("y", 0)
+    .attr("width", 30)
+    .attr("height", height)
+    .attr("fill", "transparent");
+
+// Draw the threshold line
+const thresholdLine = thresholdGroup.append("line")
+    .attr("class", "threshold")
+    .attr("x1", xScale(threshold))
+    .attr("y1", 0)
+    .attr("x2", xScale(threshold))
+    .attr("y2", height)
+    .attr("stroke", "green")
+    .attr("stroke-width", 2);
+
+// Add a handle to the threshold line
+const thresholdHandle = thresholdGroup.append("circle")
+    .attr("class", "threshold-handle")
+    .attr("cx", xScale(threshold))
+    .attr("cy", height / 2)
+    .attr("r", 8)
+    .attr("fill", "green");
+
+// Function to update threshold position
+function updateThresholdPosition(newX) {
+    const newThreshold = Math.max(xMin, Math.min(xMax, xScale.invert(newX)));
+    d3.select("#threshold").property("value", newThreshold);
+    thresholdGroup.attr("transform", `translate(${xScale(newThreshold) - xScale(threshold)}, 0)`);
+    updatePlots();
+}
+
+// Add both mouse and touch event listeners
+const drag = d3.drag()
+    .on("start", function() {
+        thresholdLine.attr("stroke-width", 4);
+        thresholdHandle.attr("r", 10);
+    })
+    .on("drag", function(event) {
+        updateThresholdPosition(event.x);
+    })
+    .on("end", function() {
+        thresholdLine.attr("stroke-width", 2);
+        thresholdHandle.attr("r", 8);
+    });
+
+thresholdGroup.call(drag);
+
+// Add touch events for mobile
+thresholdGroup
+    .on("touchstart", function() {
+        thresholdLine.attr("stroke-width", 4);
+        thresholdHandle.attr("r", 10);
+    })
+    .on("touchmove", function(event) {
+        event.preventDefault();
+        const touch = event.touches[0];
+        const newX = touch.clientX - distributionSvg.node().getBoundingClientRect().left;
+        updateThresholdPosition(newX);
+    })
+    .on("touchend", function() {
+        thresholdLine.attr("stroke-width", 2);
+        thresholdHandle.attr("r", 8);
+    });
 
     // Calculate ROC curve
     const rocPoints = d3.range(xMin, xMax, 0.01).map(t => {
