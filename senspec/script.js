@@ -254,7 +254,7 @@ d3.select("#toggleAxis").on("click", () => {
 });
 // Update SVG sizes
 d3.selectAll(".plot svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
-// Initial plot rendering
+    .attr("width", "100%")
+    .attr("height", "100%")
+    .attr("viewBox", `0 0 ${size} ${size}`);// Initial plot rendering
 updatePlots();
