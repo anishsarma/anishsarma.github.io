@@ -1,15 +1,12 @@
 body {
-    padding-top:10px;
-            padding-left:10px;
-            padding-right:10px;
-/*             max-width:640px; */
-            font-family:arial;
-            margin:auto;
-            font-size:250%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 800px;  /* Adjusted for single-column layout */
     margin: 0 auto;
     background-color: white;
     padding: 20px;
@@ -41,48 +38,15 @@ input[type="number"] {
     width: 50px;
 }
 
-input[type="range"] {
-    width: 200px;
-    vertical-align: middle;
-}
-
-#thresholdValue {
-    display: inline-block;
-    width: 30px;
-    text-align: right;
-}
-
 .plot-container {
-    display: flex;
-    justify-content: space-between;
+    margin-bottom: 20px;  /* Add space between plots */
 }
 
 .plot {
-    width: 48%;
+    width: 100%;  /* Make plots full width */
     height: 400px;
     border: 1px solid #ddd;
     border-radius: 5px;
-}
-
-button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-.threshold {
-    cursor: ew-resize;
-}
-
-.rocPoint {
-    cursor: pointer;
 }
 
 .x-label {
