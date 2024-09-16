@@ -103,10 +103,10 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
         data: [{ x: point.x, y: point.y }],
         backgroundColor: taskColors[point.type], // The final color
         pointRadius: 5,
+        pointBackgroundColor: 'rgba(0, 0, 0, 0)', // Start invisible
         showLine: false
     }));
 
-    // Create the chart instance
     chartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -178,31 +178,46 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
                     }
                 }
             },
-            // Configure the animation for the data points only
+            // Disable the default animation for flying points
             animation: {
-                duration: 1000, // Fade-in animation duration
-                easing: 'easeInOutQuad', // Smooth easing
-                onProgress: function (animation) {
-                    let chartInstance = animation.chart;
-                    let elements = chartInstance.getDatasetMeta(0).data;
-
-                    elements.forEach((element, index) => {
-                        // Fade in by gradually increasing the point opacity
-                        element.custom = element.custom || {};
-                        element.custom.backgroundColor = `rgba(${hexToRgb(taskColors[dataPoints[index].type])}, ${animation.currentStep / animation.numSteps})`;
-                    });
-                },
-                onComplete: function () {
-                    // Ensure points are fully opaque after animation
-                    chartInstance.data.datasets.forEach((dataset, i) => {
-                        dataset.backgroundColor = taskColors[dataset.label.replace('Task ', '')];
-                    });
-                    chartInstance.update();
+                duration: 0
+            },
+            transitions: {
+                // Custom transition for fading in data points
+                active: {
+                    animation: {
+                        duration: 1000, // 1 second fade-in
+                        easing: 'easeInOutQuad', // Smooth easing for fade-in effect
+                        loop: false
+                    }
                 }
+            },
+            hover: {
+                animationDuration: 0, // Disable hover animation to prevent interference
+            },
+            onResize: (chart) => {
+                chart.update(); // Redraw chart on resize
             }
         }
     });
+
+    // Programmatically trigger a fade-in animation for each dataset
+    chartInstance.data.datasets.forEach((dataset, i) => {
+        // Delay fade-in for data points by adjusting background color
+        dataset.pointBackgroundColor = `rgba(${hexToRgb(taskColors[dataset.label.replace('Task ', '')])}, 0)`; // Start invisible
+    });
+
+    chartInstance.update(); // Render initial chart without points
+    
+    // Start fade-in effect
+    setTimeout(() => {
+        chartInstance.data.datasets.forEach((dataset, i) => {
+            dataset.pointBackgroundColor = taskColors[dataset.label.replace('Task ', '')]; // Full opacity after fade
+        });
+        chartInstance.update(); // Re-render chart with visible points
+    }, 100); // Slight delay to allow initial render
 }
+
 
 // Helper function to convert hex color to rgb
 function hexToRgb(hex) {
