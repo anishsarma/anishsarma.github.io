@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         #scheduleChart {
-            width: 800px;
+            width: 100%;
             height: 400px;
         }
         .container {
@@ -31,6 +31,19 @@
     <div class="container">
         <h1>Task Scheduler</h1>
         <form id="taskForm">
+            <div class="form-group">
+                <label for="wakingHoursStart">Wake Time Start (Hours)</label>
+                <input type="number" id="wakingHoursStart" name="wakingHoursStart" min="0" max="24" value="6">
+            </div>
+            <div class="form-group">
+                <label for="wakingHoursEnd">Wake Time End (Hours)</label>
+                <input type="number" id="wakingHoursEnd" name="wakingHoursEnd" min="0" max="24" value="22">
+            </div>
+            <div class="form-group">
+                <label for="mealTimes">Meal Times (Hours, comma-separated)</label>
+                <input type="text" id="mealTimes" name="mealTimes" value="7,13,19">
+            </div>
+
             <div id="tasksContainer">
                 <!-- Task fields will be dynamically added here -->
             </div>
@@ -44,7 +57,7 @@
 
         function addTaskFields() {
             const container = document.getElementById('tasksContainer');
-            const taskIndex = container.children.length / 3;
+            const taskIndex = container.children.length / 2;
 
             if (taskIndex >= 5) return; // Limit to 5 tasks
 
@@ -58,12 +71,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="taskTime${taskIndex}">Task Time ${taskIndex + 1} (Hours)</label>
-                    <input type="number" id="taskTime${taskIndex}" name="taskTime${taskIndex}" min="0" max="24">
-                </div>
-                <div class="form-group">
-                    <label for="taskSpacing${taskIndex}">Spacing (hours) for Task ${taskIndex + 1} (if needed)</label>
-                    <input type="number" id="taskSpacing${taskIndex}" name="taskSpacing${taskIndex}" min="0">
+                    <label for="taskFrequency${taskIndex}">Number of Times per Day for Task ${taskIndex + 1}</label>
+                    <input type="number" id="taskFrequency${taskIndex}" name="taskFrequency${taskIndex}" min="1">
                 </div>
             `;
 
@@ -72,45 +81,61 @@
 
         function scheduleTasks() {
             const tasks = [];
-            const numTasks = document.getElementById('tasksContainer').children.length / 3;
+            const numTasks = document.getElementById('tasksContainer').children.length / 2;
+
+            // Get waking hours and mealtimes
+            const wakingHoursStart = parseFloat(document.getElementById('wakingHoursStart').value);
+            const wakingHoursEnd = parseFloat(document.getElementById('wakingHoursEnd').value);
+            const mealTimes = document.getElementById('mealTimes').value.split(',').map(time => parseFloat(time));
+
+            // Validate waking hours
+            if (wakingHoursStart >= wakingHoursEnd || wakingHoursStart < 0 || wakingHoursEnd > 24) {
+                alert('Invalid waking hours');
+                return;
+            }
 
             for (let i = 0; i < numTasks; i++) {
                 const type = document.getElementById(`taskType${i}`).value;
-                const time = parseFloat(document.getElementById(`taskTime${i}`).value);
-                const spacing = parseFloat(document.getElementById(`taskSpacing${i}`).value) || 0;
+                const frequency = parseFloat(document.getElementById(`taskFrequency${i}`).value);
 
                 tasks.push({
                     type: type,
-                    time: time,
-                    spacing: spacing
+                    frequency: frequency
                 });
             }
 
-            // Example of default waking hours and meal times
-            const wakingHours = [6, 22];
-            const mealTimes = [7, 13, 19];
-
             // Call scheduling function with collected tasks
-            const scheduledTasks = schedule(tasks, wakingHours, mealTimes);
+            const scheduledTasks = schedule(tasks, wakingHoursStart, wakingHoursEnd, mealTimes);
 
             // Plot the schedule
-            plotSchedule(scheduledTasks, wakingHours, mealTimes);
+            plotSchedule(scheduledTasks, wakingHoursStart, wakingHoursEnd, mealTimes);
         }
 
-        function schedule(tasks, wakingHours, mealTimes) {
+        function schedule(tasks, wakingHoursStart, wakingHoursEnd, mealTimes) {
             // Implement scheduling algorithm here
-            // For demonstration, this returns the input tasks without scheduling
-            return tasks.map(task => ({
-                x: task.time,
-                y: {
-                    A: 1,
-                    B: 2,
-                    C: 3
-                }[task.type] || 0
-            }));
+            // For demonstration, this returns evenly spaced tasks
+            let scheduledTasks = [];
+            let currentHour = wakingHoursStart;
+
+            tasks.forEach(task => {
+                for (let i = 0; i < task.frequency; i++) {
+                    scheduledTasks.push({
+                        x: currentHour,
+                        y: {
+                            A: 1,
+                            B: 2,
+                            C: 3
+                        }[task.type] || 0
+                    });
+                    currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                    if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
+                }
+            });
+
+            return scheduledTasks;
         }
 
-        function plotSchedule(dataPoints, wakingHours, mealTimes) {
+        function plotSchedule(dataPoints, wakingHoursStart, wakingHoursEnd, mealTimes) {
             const ctx = document.getElementById('scheduleChart').getContext('2d');
 
             // If a chart already exists, destroy it before creating a new one
@@ -140,7 +165,7 @@
                             max: 24,
                             ticks: {
                                 callback: function (value) {
-                                    return value < 11.999 ? `${value}am` : `${value - 12}pm`;
+                                    return value < 12 ? `${value}am` : `${value - 12}pm`;
                                 }
                             },
                             title: {
@@ -170,12 +195,12 @@
                                 sleep: {
                                     type: 'box',
                                     xMin: 0,
-                                    xMax: wakingHours[0],
+                                    xMax: wakingHoursStart,
                                     backgroundColor: 'rgba(100, 100, 100, 0.2)'
                                 },
                                 sleep2: {
                                     type: 'box',
-                                    xMin: wakingHours[1],
+                                    xMin: wakingHoursEnd,
                                     xMax: 24,
                                     backgroundColor: 'rgba(100, 100, 100, 0.2)'
                                 },
