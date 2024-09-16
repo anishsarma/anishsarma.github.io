@@ -1,3 +1,6 @@
+// Global chart instance
+let chartInstance = null;
+
 // Helper function to convert "6am", "7pm", etc. into hours (0-24 range)
 function timeTo24Hr(timeStr) {
     let [time, period] = timeStr.match(/[a-z]+|[^a-z]+/gi);
@@ -26,6 +29,9 @@ let tasks = [
     { type: 'C', dayBoundary: true, y: 3 }             // Task C (y = 3)
 ];
 
+// Task colors
+let taskColors = { 'A': 'red', 'B': 'green', 'C': 'blue' };
+
 // Function to schedule tasks based on constraints
 function scheduleTasks() {
     // Get user inputs
@@ -34,7 +40,6 @@ function scheduleTasks() {
 
     // Initialize chart data
     let dataPoints = [];
-    let taskColors = { 'A': 'red', 'B': 'green', 'C': 'blue' };
 
     // Schedule Task C at the beginning and end of the day
     tasks.filter(task => task.type === 'C').forEach(task => {
@@ -69,6 +74,12 @@ function scheduleTasks() {
 function plotSchedule(dataPoints, wakingHours, mealTimes) {
     const ctx = document.getElementById('scheduleChart').getContext('2d');
 
+    // If a chart already exists, destroy it before creating a new one
+    if (chartInstance !== null) {
+        chartInstance.destroy();
+    }
+
+    // Map data points to datasets
     const datasets = dataPoints.map((point) => ({
         label: `Task ${point.type}`,
         data: [{ x: point.x, y: point.y }],
@@ -77,7 +88,7 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
         showLine: false
     }));
 
-    new Chart(ctx, {
+    chartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
             datasets: datasets
