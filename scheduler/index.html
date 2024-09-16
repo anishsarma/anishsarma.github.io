@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Scheduler</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #scheduleChart {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        .settings {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings">
+        <label>Waking Hours: 
+            <input type="text" id="wakingHours" value="6am-10pm">
+        </label>
+        <label>Meal Times: 
+            <input type="text" id="mealTimes" value="7am,1pm,7pm">
+        </label>
+        <button onclick="scheduleTasks()">Schedule Tasks</button>
+    </div>
+
+    <canvas id="scheduleChart"></canvas>
+
+    <script src="taskScheduler.js"></script>
+</body>
+</html>
