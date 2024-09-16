@@ -91,7 +91,7 @@ function scheduleTasks() {
 }
 // Function to plot the schedule using Chart.js with fade-in effect for data points
 function plotSchedule(dataPoints, wakingHours, mealTimes) {
-    console.log('Plot Schedule mentioned!')
+    window.alert('Plot Schedule mentioned!')
     const ctx = document.getElementById('scheduleChart').getContext('2d');
 
     // If a chart already exists, destroy it before creating a new one
