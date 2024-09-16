@@ -39,11 +39,11 @@
         <h1>Task Scheduler</h1>
         <form id="taskForm">
             <div class="form-group">
-                <label for="wakingHoursStart">Wake Time Start (Hours)</label>
+                <label for="wakingHoursStart">Wake Time</label>
                 <input type="number" id="wakingHoursStart" name="wakingHoursStart" min="0" max="24" value="6">
             </div>
             <div class="form-group">
-                <label for="wakingHoursEnd">Wake Time End (Hours)</label>
+                <label for="wakingHoursEnd">Sleeo Time</label>
                 <input type="number" id="wakingHoursEnd" name="wakingHoursEnd" min="0" max="24" value="22">
             </div>
             <div class="form-group">
@@ -74,9 +74,9 @@
                 <div class="form-group">
                     <label for="taskType${taskIndex}">Task Type ${taskIndex + 1}</label>
                     <select id="taskType${taskIndex}" name="taskType${taskIndex}">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
+                        <option value="A">X Times Per Day</option>
+                        <option value="B">After a Meal</option>
+                        <option value="C">Before Bed</option>
                     </select>
                 </div>
                 <div class="form-group">
