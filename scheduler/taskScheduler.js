@@ -86,10 +86,12 @@ function scheduleTasks() {
     });
 
     // Plot the schedule
+    
     plotSchedule(dataPoints, wakingHours, mealTimes);
 }
 // Function to plot the schedule using Chart.js with fade-in effect for data points
 function plotSchedule(dataPoints, wakingHours, mealTimes) {
+    console.log('Plot Schedule mentioned!')
     const ctx = document.getElementById('scheduleChart').getContext('2d');
 
     // If a chart already exists, destroy it before creating a new one
@@ -210,7 +212,8 @@ function hexToRgb(hex) {
 
     let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
-}// Automatically schedule tasks when the page loads
+}
+// Automatically schedule tasks when the page loads
 window.onload = function() {
     scheduleTasks();
 };
