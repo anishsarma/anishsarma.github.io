@@ -116,12 +116,12 @@
             // For demonstration, this returns evenly spaced tasks
             let scheduledTasks = [];
             let currentHour = wakingHoursStart;
-
-            tasks.forEach(task => {
+            j=0;
+            tasks.forEach(task => {j++
                 for (let i = 0; i < task.frequency; i++) {
                     scheduledTasks.push({
                         x: currentHour,
-                        y: 1
+                        y: j
                     });
                     currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                     if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
