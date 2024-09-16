@@ -120,7 +120,7 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
                     max: 24,
                     ticks: {
                         callback: function (value) {
-                            return value < 12 ? `${value}am` : `${value - 12}pm`;
+                            return value <= 12 ? `${value}am` : `${value - 12}pm`;
                         }
                     },
                     title: {
