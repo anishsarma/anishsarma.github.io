@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
             body{
+            max-width:400px;
             padding-top:10px;
             padding-left:10px;
             padding-right:10px;
@@ -68,15 +69,15 @@
             const container = document.getElementById('tasksContainer');
             const taskIndex = container.children.length / 2;
 
-            if (taskIndex >= 5) return; // Limit to 5 tasks
+            if (taskIndex >= 4) return; // Limit tasks
 
             const taskHtml = `
                 <div class="form-group">
                     <label for="taskType${taskIndex}">Task Type ${taskIndex + 1}</label>
                     <select id="taskType${taskIndex}" name="taskType${taskIndex}">
                         <option value="A">X Times Per Day</option>
-                        <option value="B">After a Meal</option>
-                        <option value="C">Before Bed</option>
+                        <option value="B">After Meal X</option>
+                        <option value="C">After Waking or Before Bed (X=1 for Bedtime)</option>
                     </select>
                 </div>
                 <div class="form-group">
