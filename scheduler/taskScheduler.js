@@ -47,14 +47,33 @@ function scheduleTasks() {
         dataPoints.push({ x: wakingHours[1], y: task.y, type: task.type });
     });
 
-    // Schedule Task A (spacing at least 5 hours apart)
+    // Schedule Task A with optimal timing (waking time and after meals)
     tasks.filter(task => task.type === 'A').forEach(task => {
-        let firstTaskTime = wakingHours[0] + 1; // Schedule 1 hour after waking up
         let spacing = task.minSpacing;
-        for (let i = 0; i < task.frequency; i++) {
-            let taskTime = firstTaskTime + i * spacing;
-            if (taskTime < wakingHours[1]) {
-                dataPoints.push({ x: taskTime, y: task.y, type: task.type });
+        let scheduledTimes = [];
+        
+        // First Task A at wake time to minimize additional events
+        scheduledTimes.push(wakingHours[0]);
+        dataPoints.push({ x: wakingHours[0], y: task.y, type: task.type });
+        
+        // Subsequent Task A instances after meals, if spacing constraints allow
+        mealTimes.forEach(mealTime => {
+            let lastScheduled = scheduledTimes[scheduledTimes.length - 1];
+            if (mealTime >= lastScheduled + spacing && mealTime < wakingHours[1]) {
+                scheduledTimes.push(mealTime);
+                dataPoints.push({ x: mealTime, y: task.y, type: task.type });
+            }
+        });
+
+        // If there's still a need for more Task A instances, schedule additional ones
+        while (scheduledTimes.length < task.frequency) {
+            let lastScheduled = scheduledTimes[scheduledTimes.length - 1];
+            let nextTime = lastScheduled + spacing;
+            if (nextTime < wakingHours[1]) {
+                scheduledTimes.push(nextTime);
+                dataPoints.push({ x: nextTime, y: task.y, type: task.type });
+            } else {
+                break;
             }
         }
     });
@@ -69,7 +88,6 @@ function scheduleTasks() {
     // Plot the schedule
     plotSchedule(dataPoints, wakingHours, mealTimes);
 }
-
 // Function to plot the schedule using Chart.js
 function plotSchedule(dataPoints, wakingHours, mealTimes) {
     const ctx = document.getElementById('scheduleChart').getContext('2d');
