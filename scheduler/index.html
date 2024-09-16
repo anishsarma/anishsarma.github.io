@@ -5,30 +5,205 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Scheduler</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.1.1"></script>
-        <style>
+    <style>
         #scheduleChart {
-            max-width: 800px;
-            max-height: 400px;
+            width: 800px;
+            height: 400px;
         }
-        .settings {
-            margin-bottom: 20px;
+        .container {
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
-    <div class="settings">
-        <label>Waking Hours: 
-            <input type="text" id="wakingHours" value="6am-10pm">
-        </label>
-        <label>Meal Times: 
-            <input type="text" id="mealTimes" value="7am,1pm,7pm">
-        </label>
-        <button onclick="scheduleTasks()">Schedule Tasks</button>
+    <div class="container">
+        <h1>Task Scheduler</h1>
+        <form id="taskForm">
+            <div id="tasksContainer">
+                <!-- Task fields will be dynamically added here -->
+            </div>
+            <button type="button" onclick="addTaskFields()">Add Task</button>
+            <button type="button" onclick="scheduleTasks()">Schedule Tasks</button>
+        </form>
+        <canvas id="scheduleChart"></canvas>
     </div>
+    <script>
+        let chartInstance = null;
 
-    <canvas id="scheduleChart" width="600" height="400"></canvas>
+        function addTaskFields() {
+            const container = document.getElementById('tasksContainer');
+            const taskIndex = container.children.length / 3;
 
-    <script src="taskScheduler.js"></script>
+            if (taskIndex >= 5) return; // Limit to 5 tasks
+
+            const taskHtml = `
+                <div class="form-group">
+                    <label for="taskType${taskIndex}">Task Type ${taskIndex + 1}</label>
+                    <select id="taskType${taskIndex}" name="taskType${taskIndex}">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskTime${taskIndex}">Task Time ${taskIndex + 1} (Hours)</label>
+                    <input type="number" id="taskTime${taskIndex}" name="taskTime${taskIndex}" min="0" max="24">
+                </div>
+                <div class="form-group">
+                    <label for="taskSpacing${taskIndex}">Spacing (hours) for Task ${taskIndex + 1} (if needed)</label>
+                    <input type="number" id="taskSpacing${taskIndex}" name="taskSpacing${taskIndex}" min="0">
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', taskHtml);
+        }
+
+        function scheduleTasks() {
+            const tasks = [];
+            const numTasks = document.getElementById('tasksContainer').children.length / 3;
+
+            for (let i = 0; i < numTasks; i++) {
+                const type = document.getElementById(`taskType${i}`).value;
+                const time = parseFloat(document.getElementById(`taskTime${i}`).value);
+                const spacing = parseFloat(document.getElementById(`taskSpacing${i}`).value) || 0;
+
+                tasks.push({
+                    type: type,
+                    time: time,
+                    spacing: spacing
+                });
+            }
+
+            // Example of default waking hours and meal times
+            const wakingHours = [6, 22];
+            const mealTimes = [7, 13, 19];
+
+            // Call scheduling function with collected tasks
+            const scheduledTasks = schedule(tasks, wakingHours, mealTimes);
+
+            // Plot the schedule
+            plotSchedule(scheduledTasks, wakingHours, mealTimes);
+        }
+
+        function schedule(tasks, wakingHours, mealTimes) {
+            // Implement scheduling algorithm here
+            // For demonstration, this returns the input tasks without scheduling
+            return tasks.map(task => ({
+                x: task.time,
+                y: {
+                    A: 1,
+                    B: 2,
+                    C: 3
+                }[task.type] || 0
+            }));
+        }
+
+        function plotSchedule(dataPoints, wakingHours, mealTimes) {
+            const ctx = document.getElementById('scheduleChart').getContext('2d');
+
+            // If a chart already exists, destroy it before creating a new one
+            if (chartInstance !== null) {
+                chartInstance.destroy();
+            }
+
+            // Map data points to datasets
+            const datasets = [{
+                label: 'Tasks',
+                data: dataPoints,
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                pointRadius: 5
+            }];
+
+            chartInstance = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: datasets
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            min: 0,
+                            max: 24,
+                            ticks: {
+                                callback: function (value) {
+                                    return value < 11.999 ? `${value}am` : `${value - 12}pm`;
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Time of Day (Hours)'
+                            }
+                        },
+                        y: {
+                            min: 0,
+                            max: 4,
+                            ticks: {
+                                stepSize: 1,
+                                callback: function (value) {
+                                    return `Task ${value}`;
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Tasks'
+                            }
+                        }
+                    },
+                    plugins: {
+                        annotation: {
+                            annotations: {
+                                // Sleep hours shading
+                                sleep: {
+                                    type: 'box',
+                                    xMin: 0,
+                                    xMax: wakingHours[0],
+                                    backgroundColor: 'rgba(100, 100, 100, 0.2)'
+                                },
+                                sleep2: {
+                                    type: 'box',
+                                    xMin: wakingHours[1],
+                                    xMax: 24,
+                                    backgroundColor: 'rgba(100, 100, 100, 0.2)'
+                                },
+                                // Meal times
+                                ...mealTimes.reduce((acc, mealTime, index) => ({
+                                    ...acc,
+                                    [`meal${index}`]: {
+                                        type: 'line',
+                                        xMin: mealTime,
+                                        xMax: mealTime,
+                                        borderColor: 'black',
+                                        borderWidth: 2,
+                                        label: {
+                                            content: `Meal ${index + 1}`,
+                                            enabled: true,
+                                            position: 'top'
+                                        }
+                                    }
+                                }), {})
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 0
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
