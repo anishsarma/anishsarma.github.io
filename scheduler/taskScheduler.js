@@ -88,7 +88,7 @@ function scheduleTasks() {
     // Plot the schedule
     plotSchedule(dataPoints, wakingHours, mealTimes);
 }
-// Function to plot the schedule using Chart.js
+// Function to plot the schedule using Chart.js with fade-in animation
 function plotSchedule(dataPoints, wakingHours, mealTimes) {
     const ctx = document.getElementById('scheduleChart').getContext('2d');
 
@@ -175,6 +175,20 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
                             }
                         }), {})
                     }
+                }
+            },
+            animation: {
+                duration: 1000, // 1 second fade-in animation
+                easing: 'easeInOutQuad', // Smooth easing for fade-in effect
+                onProgress: function(animation) {
+                    let chartInstance = animation.chart;
+                    let ctx = chartInstance.ctx;
+                    ctx.globalAlpha = animation.currentStep / animation.numSteps; // Fade in by adjusting alpha
+                },
+                onComplete: function(animation) {
+                    let chartInstance = animation.chart;
+                    let ctx = chartInstance.ctx;
+                    ctx.globalAlpha = 1; // Ensure points are fully opaque after animation
                 }
             }
         }
