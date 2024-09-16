@@ -162,3 +162,8 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
         }
     });
 }
+
+// Automatically schedule tasks when the page loads
+window.onload = function() {
+    scheduleTasks();
+};
