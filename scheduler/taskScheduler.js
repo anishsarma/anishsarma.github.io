@@ -101,12 +101,12 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
     const datasets = dataPoints.map((point) => ({
         label: `Task ${point.type}`,
         data: [{ x: point.x, y: point.y }],
-        backgroundColor: taskColors[point.type], // The final color
+        backgroundColor: `rgba(${hexToRgb(taskColors[point.type])}, 0)`, // Start fully transparent
         pointRadius: 5,
-        pointBackgroundColor: 'rgba(0, 0, 0, 0)', // Start invisible
-        showLine: false
+        showLine: false,
     }));
 
+    // Create the chart instance
     chartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -178,44 +178,25 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
                     }
                 }
             },
-            // Disable the default animation for flying points
+            // Disable the default fly-in animation for the points
             animation: {
                 duration: 0
-            },
-            transitions: {
-                // Custom transition for fading in data points
-                active: {
-                    animation: {
-                        duration: 1000, // 1 second fade-in
-                        easing: 'easeInOutQuad', // Smooth easing for fade-in effect
-                        loop: false
-                    }
-                }
-            },
-            hover: {
-                animationDuration: 0, // Disable hover animation to prevent interference
-            },
-            onResize: (chart) => {
-                chart.update(); // Redraw chart on resize
             }
         }
     });
 
-    // Programmatically trigger a fade-in animation for each dataset
-    chartInstance.data.datasets.forEach((dataset, i) => {
-        // Delay fade-in for data points by adjusting background color
-        dataset.pointBackgroundColor = `rgba(${hexToRgb(taskColors[dataset.label.replace('Task ', '')])}, 0)`; // Start invisible
-    });
-
-    chartInstance.update(); // Render initial chart without points
-    
-    // Start fade-in effect
+    // Fade-in effect for the data points
     setTimeout(() => {
-        chartInstance.data.datasets.forEach((dataset, i) => {
-            dataset.pointBackgroundColor = taskColors[dataset.label.replace('Task ', '')]; // Full opacity after fade
+        chartInstance.data.datasets.forEach((dataset, index) => {
+            // Update the dataset backgroundColor to full opacity
+            dataset.backgroundColor = taskColors[dataPoints[index].type]; // Full color after fade
         });
-        chartInstance.update(); // Re-render chart with visible points
-    }, 100); // Slight delay to allow initial render
+
+        chartInstance.update({
+            duration: 1000, // Fade-in animation duration
+            easing: 'easeInOutQuad', // Smooth easing
+        });
+    }, 100); // Slight delay to render the chart first
 }
 
 
