@@ -102,7 +102,7 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
         label: `Task ${point.type}`,
         data: [{ x: point.x, y: point.y }],
         backgroundColor: `rgba(${hexToRgb(taskColors[point.type])}, 0)`, // Start fully transparent
-        pointRadius: 5,
+        pointRadius: 10,
         showLine: false,
     }));
 
