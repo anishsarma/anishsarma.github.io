@@ -193,10 +193,10 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
         });
 
         chartInstance.update({
-            duration: 1000, // Fade-in animation duration
+            duration: 10000, // Fade-in animation duration
             easing: 'easeInOutQuad', // Smooth easing
         });
-    }, 100); // Slight delay to render the chart first
+    }, 1000); // Slight delay to render the chart first
 }
 
 
