@@ -88,7 +88,7 @@ function scheduleTasks() {
     // Plot the schedule
     plotSchedule(dataPoints, wakingHours, mealTimes);
 }
-// Function to plot the schedule using Chart.js with fade-in animation
+// Function to plot the schedule using Chart.js with fade-in effect for data points
 function plotSchedule(dataPoints, wakingHours, mealTimes) {
     const ctx = document.getElementById('scheduleChart').getContext('2d');
 
@@ -101,11 +101,12 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
     const datasets = dataPoints.map((point) => ({
         label: `Task ${point.type}`,
         data: [{ x: point.x, y: point.y }],
-        backgroundColor: taskColors[point.type],
+        backgroundColor: taskColors[point.type], // The final color
         pointRadius: 5,
         showLine: false
     }));
 
+    // Create the chart instance
     chartInstance = new Chart(ctx, {
         type: 'scatter',
         data: {
@@ -177,25 +178,43 @@ function plotSchedule(dataPoints, wakingHours, mealTimes) {
                     }
                 }
             },
+            // Configure the animation for the data points only
             animation: {
-                duration: 1000, // 1 second fade-in animation
-                easing: 'easeInOutQuad', // Smooth easing for fade-in effect
-                onProgress: function(animation) {
+                duration: 1000, // Fade-in animation duration
+                easing: 'easeInOutQuad', // Smooth easing
+                onProgress: function (animation) {
                     let chartInstance = animation.chart;
-                    let ctx = chartInstance.ctx;
-                    ctx.globalAlpha = animation.currentStep / animation.numSteps; // Fade in by adjusting alpha
+                    let elements = chartInstance.getDatasetMeta(0).data;
+
+                    elements.forEach((element, index) => {
+                        // Fade in by gradually increasing the point opacity
+                        element.custom = element.custom || {};
+                        element.custom.backgroundColor = `rgba(${hexToRgb(taskColors[dataPoints[index].type])}, ${animation.currentStep / animation.numSteps})`;
+                    });
                 },
-                onComplete: function(animation) {
-                    let chartInstance = animation.chart;
-                    let ctx = chartInstance.ctx;
-                    ctx.globalAlpha = 1; // Ensure points are fully opaque after animation
+                onComplete: function () {
+                    // Ensure points are fully opaque after animation
+                    chartInstance.data.datasets.forEach((dataset, i) => {
+                        dataset.backgroundColor = taskColors[dataset.label.replace('Task ', '')];
+                    });
+                    chartInstance.update();
                 }
             }
         }
     });
 }
 
-// Automatically schedule tasks when the page loads
+// Helper function to convert hex color to rgb
+function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
+}// Automatically schedule tasks when the page loads
 window.onload = function() {
     scheduleTasks();
 };
