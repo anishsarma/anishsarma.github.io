@@ -52,179 +52,181 @@
         </form>
         <canvas id="scheduleChart"></canvas>
     </div>
+    <script src="taskScheduler.js"></script>
     <script>
-        let chartInstance = null;
+        
+        // let chartInstance = null;
 
-        function addTaskFields() {
-            const container = document.getElementById('tasksContainer');
-            const taskIndex = container.children.length / 2;
+        // function addTaskFields() {
+        //     const container = document.getElementById('tasksContainer');
+        //     const taskIndex = container.children.length / 2;
 
-            if (taskIndex >= 5) return; // Limit to 5 tasks
+        //     if (taskIndex >= 5) return; // Limit to 5 tasks
 
-            const taskHtml = `
-                <div class="form-group">
-                    <label for="taskType${taskIndex}">Task Type ${taskIndex + 1}</label>
-                    <select id="taskType${taskIndex}" name="taskType${taskIndex}">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="taskFrequency${taskIndex}">Number of Times per Day for Task ${taskIndex + 1}</label>
-                    <input type="number" id="taskFrequency${taskIndex}" name="taskFrequency${taskIndex}" min="1">
-                </div>
-            `;
+        //     const taskHtml = `
+        //         <div class="form-group">
+        //             <label for="taskType${taskIndex}">Task Type ${taskIndex + 1}</label>
+        //             <select id="taskType${taskIndex}" name="taskType${taskIndex}">
+        //                 <option value="A">A</option>
+        //                 <option value="B">B</option>
+        //                 <option value="C">C</option>
+        //             </select>
+        //         </div>
+        //         <div class="form-group">
+        //             <label for="taskFrequency${taskIndex}">Number of Times per Day for Task ${taskIndex + 1}</label>
+        //             <input type="number" id="taskFrequency${taskIndex}" name="taskFrequency${taskIndex}" min="1">
+        //         </div>
+        //     `;
 
-            container.insertAdjacentHTML('beforeend', taskHtml);
-        }
+        //     container.insertAdjacentHTML('beforeend', taskHtml);
+        // }
 
-        function scheduleTasks() {
-            const tasks = [];
-            const numTasks = document.getElementById('tasksContainer').children.length / 2;
+        // function scheduleTasks() {
+        //     const tasks = [];
+        //     const numTasks = document.getElementById('tasksContainer').children.length / 2;
 
-            // Get waking hours and mealtimes
-            const wakingHoursStart = parseFloat(document.getElementById('wakingHoursStart').value);
-            const wakingHoursEnd = parseFloat(document.getElementById('wakingHoursEnd').value);
-            const mealTimes = document.getElementById('mealTimes').value.split(',').map(time => parseFloat(time));
+        //     // Get waking hours and mealtimes
+        //     const wakingHoursStart = parseFloat(document.getElementById('wakingHoursStart').value);
+        //     const wakingHoursEnd = parseFloat(document.getElementById('wakingHoursEnd').value);
+        //     const mealTimes = document.getElementById('mealTimes').value.split(',').map(time => parseFloat(time));
 
-            // Validate waking hours
-            if (wakingHoursStart >= wakingHoursEnd || wakingHoursStart < 0 || wakingHoursEnd > 24) {
-                alert('Invalid waking hours');
-                return;
-            }
+        //     // Validate waking hours
+        //     if (wakingHoursStart >= wakingHoursEnd || wakingHoursStart < 0 || wakingHoursEnd > 24) {
+        //         alert('Invalid waking hours');
+        //         return;
+        //     }
 
-            for (let i = 0; i < numTasks; i++) {
-                const type = document.getElementById(`taskType${i}`).value;
-                const frequency = parseFloat(document.getElementById(`taskFrequency${i}`).value);
+        //     for (let i = 0; i < numTasks; i++) {
+        //         const type = document.getElementById(`taskType${i}`).value;
+        //         const frequency = parseFloat(document.getElementById(`taskFrequency${i}`).value);
 
-                tasks.push({
-                    type: type,
-                    frequency: frequency
-                });
-            }
+        //         tasks.push({
+        //             type: type,
+        //             frequency: frequency
+        //         });
+        //     }
 
-            // Call scheduling function with collected tasks
-            const scheduledTasks = schedule(tasks, wakingHoursStart, wakingHoursEnd, mealTimes);
+        //     // Call scheduling function with collected tasks
+        //     const scheduledTasks = schedule(tasks, wakingHoursStart, wakingHoursEnd, mealTimes);
 
-            // Plot the schedule
-            plotSchedule(scheduledTasks, wakingHoursStart, wakingHoursEnd, mealTimes);
-        }
+        //     // Plot the schedule
+        //     plotSchedule(scheduledTasks, wakingHoursStart, wakingHoursEnd, mealTimes);
+        // }
 
-        function schedule(tasks, wakingHoursStart, wakingHoursEnd, mealTimes) {
-            // Implement scheduling algorithm here
-            // For demonstration, this returns evenly spaced tasks
-            let scheduledTasks = [];
-            let currentHour = wakingHoursStart;
-            j=0;
-            tasks.forEach(task => {j++
-                for (let i = 0; i < task.frequency; i++) {
-                    scheduledTasks.push({
-                        x: currentHour,
-                        y: j
-                    });
-                    currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
-                    if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
-                }
-            });
+        // function schedule(tasks, wakingHoursStart, wakingHoursEnd, mealTimes) {
+        //     // Implement scheduling algorithm here
+        //     // For demonstration, this returns evenly spaced tasks
+        //     let scheduledTasks = [];
+        //     let currentHour = wakingHoursStart;
+        //     j=0;
+        //     tasks.forEach(task => {j++
+        //         for (let i = 0; i < task.frequency; i++) {
+        //             scheduledTasks.push({
+        //                 x: currentHour,
+        //                 y: j
+        //             });
+        //             currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+        //             if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
+        //         }
+        //     });
 
-            return scheduledTasks;
-        }
+        //     return scheduledTasks;
+        // }
 
-        function plotSchedule(dataPoints, wakingHoursStart, wakingHoursEnd, mealTimes) {
-            const ctx = document.getElementById('scheduleChart').getContext('2d');
+        // function plotSchedule(dataPoints, wakingHoursStart, wakingHoursEnd, mealTimes) {
+        //     const ctx = document.getElementById('scheduleChart').getContext('2d');
 
-            // If a chart already exists, destroy it before creating a new one
-            if (chartInstance !== null) {
-                chartInstance.destroy();
-            }
+        //     // If a chart already exists, destroy it before creating a new one
+        //     if (chartInstance !== null) {
+        //         chartInstance.destroy();
+        //     }
 
-            // Map data points to datasets
-            const datasets = [{
-                label: 'Tasks',
-                data: dataPoints,
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                pointRadius: 5
-            }];
+        //     // Map data points to datasets
+        //     const datasets = [{
+        //         label: 'Tasks',
+        //         data: dataPoints,
+        //         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        //         borderColor: 'rgba(255, 99, 132, 1)',
+        //         pointRadius: 5
+        //     }];
 
-            chartInstance = new Chart(ctx, {
-                type: 'scatter',
-                data: {
-                    datasets: datasets
-                },
-                options: {
-                    scales: {
-                        x: {
-                            type: 'linear',
-                            min: 0,
-                            max: 24,
-                            ticks: {
-                                callback: function (value) {
-                                    return value < 12 ? `${value}am` : `${value - 12}pm`;
-                                }
-                            },
-                            title: {
-                                display: true,
-                                text: 'Time of Day (Hours)'
-                            }
-                        },
-                        y: {
-                            min: 0,
-                            max: 4,
-                            ticks: {
-                                stepSize: 1,
-                                callback: function (value) {
-                                    return `Task ${value}`;
-                                }
-                            },
-                            title: {
-                                display: true,
-                                text: 'Tasks'
-                            }
-                        }
-                    },
-                    plugins: {
-                        annotation: {
-                            annotations: {
-                                // Sleep hours shading
-                                sleep: {
-                                    type: 'box',
-                                    xMin: 0,
-                                    xMax: wakingHoursStart,
-                                    backgroundColor: 'rgba(100, 100, 100, 0.2)'
-                                },
-                                sleep2: {
-                                    type: 'box',
-                                    xMin: wakingHoursEnd,
-                                    xMax: 24,
-                                    backgroundColor: 'rgba(100, 100, 100, 0.2)'
-                                },
-                                // Meal times
-                                ...mealTimes.reduce((acc, mealTime, index) => ({
-                                    ...acc,
-                                    [`meal${index}`]: {
-                                        type: 'line',
-                                        xMin: mealTime,
-                                        xMax: mealTime,
-                                        borderColor: 'black',
-                                        borderWidth: 2,
-                                        label: {
-                                            content: `Meal ${index + 1}`,
-                                            enabled: true,
-                                            position: 'top'
-                                        }
-                                    }
-                                }), {})
-                            }
-                        }
-                    },
-                    animation: {
-                        duration: 0
-                    }
-                }
-            });
-        }
+        //     chartInstance = new Chart(ctx, {
+        //         type: 'scatter',
+        //         data: {
+        //             datasets: datasets
+        //         },
+        //         options: {
+        //             scales: {
+        //                 x: {
+        //                     type: 'linear',
+        //                     min: 0,
+        //                     max: 24,
+        //                     ticks: {
+        //                         callback: function (value) {
+        //                             return value < 12 ? `${value}am` : `${value - 12}pm`;
+        //                         }
+        //                     },
+        //                     title: {
+        //                         display: true,
+        //                         text: 'Time of Day (Hours)'
+        //                     }
+        //                 },
+        //                 y: {
+        //                     min: 0,
+        //                     max: 4,
+        //                     ticks: {
+        //                         stepSize: 1,
+        //                         callback: function (value) {
+        //                             return `Task ${value}`;
+        //                         }
+        //                     },
+        //                     title: {
+        //                         display: true,
+        //                         text: 'Tasks'
+        //                     }
+        //                 }
+        //             },
+        //             plugins: {
+        //                 annotation: {
+        //                     annotations: {
+        //                         // Sleep hours shading
+        //                         sleep: {
+        //                             type: 'box',
+        //                             xMin: 0,
+        //                             xMax: wakingHoursStart,
+        //                             backgroundColor: 'rgba(100, 100, 100, 0.2)'
+        //                         },
+        //                         sleep2: {
+        //                             type: 'box',
+        //                             xMin: wakingHoursEnd,
+        //                             xMax: 24,
+        //                             backgroundColor: 'rgba(100, 100, 100, 0.2)'
+        //                         },
+        //                         // Meal times
+        //                         ...mealTimes.reduce((acc, mealTime, index) => ({
+        //                             ...acc,
+        //                             [`meal${index}`]: {
+        //                                 type: 'line',
+        //                                 xMin: mealTime,
+        //                                 xMax: mealTime,
+        //                                 borderColor: 'black',
+        //                                 borderWidth: 2,
+        //                                 label: {
+        //                                     content: `Meal ${index + 1}`,
+        //                                     enabled: true,
+        //                                     position: 'top'
+        //                                 }
+        //                             }
+        //                         }), {})
+        //                     }
+        //                 }
+        //             },
+        //             animation: {
+        //                 duration: 0
+        //             }
+        //         }
+        //     });
+        // }
     </script>
 </body>
 </html>
