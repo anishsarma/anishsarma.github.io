@@ -121,7 +121,7 @@
                 for (let i = 0; i < task.frequency; i++) {
                     scheduledTasks.push({
                         x: currentHour,
-                        y: i+1
+                        y: 1
                     });
                     currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                     if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
