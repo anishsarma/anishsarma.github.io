@@ -202,9 +202,9 @@
                         }
                     },
                     plugins: {
-                        // legend: {
-                            // display: false  // This turns off the legend
-                        // }
+                        legend: {
+                            display: false  // This turns off the legend
+                        },
                         annotation: {
                             annotations: {
                                 // Sleep hours shading
@@ -212,13 +212,13 @@
                                     type: 'box',
                                     xMin: 0,
                                     xMax: wakingHoursStart,
-                                    backgroundColor: 'rgba(100, 100, 100, 0.2)'
+                                    backgroundColor: 'rgba(100, 100, 100, 0.8)'
                                 },
                                 sleep2: {
                                     type: 'box',
                                     xMin: wakingHoursEnd,
                                     xMax: 24,
-                                    backgroundColor: 'rgba(100, 100, 100, 0.2)'
+                                    backgroundColor: 'rgba(100, 100, 100, 0.8)'
                                 },
                                 // Meal times
                                 ...mealTimes.reduce((acc, mealTime, index) => ({
