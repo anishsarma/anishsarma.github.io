@@ -192,13 +192,12 @@
                                 break
                             };
                         };
-                        if (!matchFound){currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency};
                         if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
                         scheduledTasks.push({
                             x: currentHour,
                             y: j
                         });
-                        if (matchFound){currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency};
+                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                     };
                 }
             });
