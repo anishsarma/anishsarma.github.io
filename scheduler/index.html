@@ -79,7 +79,7 @@
                     <select id="taskType${taskIndex}" name="taskType${taskIndex}">
                         <option value="A">X Times Per Day</option>
                         <option value="B">After Meal X</option>
-                        <option value="C">After Waking or Before Bed (X=2 for Bedtime)</option>
+                        <option value="C">After Waking or Before Bed (X=1 for Bedtime)</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -129,16 +129,27 @@
             let scheduledTasks = [];
             let currentHour = wakingHoursStart;
             j=0;
-            tasks.forEach(task => {j++
-                for (let i = 0; i < task.frequency; i++) {
+            tasks.forEach(task => {
+                j++
+                if task.type == 'A'{
+                    runmax = task.frequency
+                } else {runmax = 1}
+                
+                for (let i = 0; i < runmax; i++) {
                     if (task.type=='A'){
                         currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                     }
                     else if (task.type=='B'){
-                        currentHour = mealTimes[0]
+                        currentHour = mealTimes[task.frequency]
                     }
                     else if (task.type=='C'){
-                        currentHour = wakingHoursEnd
+                        if task.frequency == 0 {
+                            currentHour = wakingHoursStart
+                        }
+                        else if task.frequency == 1 {
+                            currentHour = wakingHoursStart
+                        }
+                    
                     }
                     if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
                     scheduledTasks.push({
