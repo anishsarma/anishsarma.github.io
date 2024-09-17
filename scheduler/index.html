@@ -149,7 +149,7 @@
                         currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                     }
                     else if (task.type=='B'){
-                        currentHour = mealTimes[task.frequency]
+                        currentHour = mealTimes[task.frequency-1]
                     }
                     else if (task.type=='C'){
                         if (task.frequency == 0 || (task.frequency==2 && i==0)) {
