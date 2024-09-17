@@ -126,6 +126,7 @@
         function schedule(tasks, wakingHoursStart, wakingHoursEnd, mealTimes) {
             let scheduledTasks = [];
             let currentHour = wakingHoursStart;
+            let pushHour = true;
             j=0;
             tasks.forEach(task => {
                 j++;
@@ -143,11 +144,12 @@
                 };
                 for (let i = 0; i < runmax; i++) {
                     if (task.type=='A'){
-                        // continue
-                        // currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                        pushHour = false;
                     }
                     else if (task.type=='B'){
                         currentHour = mealTimes[task.frequency-1]
+                        pushHour = true;
                     }
                     else if (task.type=='C'){
                         if (task.frequency == 0 || (task.frequency==2 && i==0)) {
@@ -156,13 +158,15 @@
                         else if (task.frequency == 1 || (task.frequency==2 && i==1)) {
                             currentHour = wakingHoursEnd
                         }
-                    
+                        pushHour = true;
                     }
                     if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
+                    if (pushHour){
                     scheduledTasks.push({
                         x: currentHour,
                         y: j
                     });
+                    };
                     
 
                 }
