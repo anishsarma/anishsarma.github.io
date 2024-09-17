@@ -176,8 +176,6 @@
             let hoursSpokenForTmp = scheduledTasks.map(task => task.x);
             // Step 2: Remove duplicates using Set
             let hoursSpokenFor = [...new Set(hoursSpokenForTmp)];
-            console.log(scheduledTasks)
-            console.log(hoursSpokenFor)
             j=0;
             tasks.forEach(task => {
                 j++;
@@ -187,16 +185,16 @@
                         for (let k=1;j<=24;j++){
                             if (hoursSpokenFor.includes(k)) {
                                 currentHour = k;
+                                console.log(currentHour)
+                                break
                             };
                         };
-                    if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
-                    scheduledTasks.push({
-                        x: currentHour,
-                        y: j
-                    });
+                        if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
+                        scheduledTasks.push({
+                            x: currentHour,
+                            y: j
+                        });
                     };
-                    
-
                 }
             });
             return scheduledTasks;
