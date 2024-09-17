@@ -181,8 +181,8 @@
                 j++;
                 currentHour = wakingHoursStart;
                 for (let i = 0; i < task.frequency; i++) {
+                    let matchFound = false
                     if (task.type=='A'){
-                        let matchFound = false
                         for (let k=currentHour-1;k<24;k++){
                             if (hoursSpokenFor.includes(k)) {
                                 console.log(k)
@@ -197,7 +197,7 @@
                             x: currentHour,
                             y: j
                         });
-                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                        if (matchFound){currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency};
                     };
                 }
             });
