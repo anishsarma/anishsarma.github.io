@@ -171,13 +171,14 @@
                             max: 24,
                             ticks: {
                                 callback: function (value) {
-                                    return value === 0 || value === 24 
-                                      ? '12am' 
-                                      : value < 12 
-                                        ? `${value}am` 
-                                        : value === 12 
-                                          ? '12pm' 
-                                          : `${value - 12}pm`;
+                                    return value < 12 ? `${value}am` : `${value - 12}pm`;
+                                    // return value === 0 || value === 24 
+                                    //   ? '12am' 
+                                    //   : value < 12 
+                                    //     ? `${value}am` 
+                                    //     : value === 12 
+                                    //       ? '12pm' 
+                                    //       : `${value - 12}pm`;
                                 }
                             },
                             title: {
