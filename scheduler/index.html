@@ -172,14 +172,15 @@
 
                 }
             });
-            // Step 1: Extract all x values
-            let hoursSpokenForTmp = scheduledTasks.map(task => task.x);
-            // Step 2: Remove duplicates using Set
-            let hoursSpokenFor = [...new Set(hoursSpokenForTmp)];
             j=0;
             tasks.forEach(task => {
                 j++;
                 currentHour = wakingHoursStart;
+                // Step 1: Extract all x values
+                let hoursSpokenForTmp = scheduledTasks.map(task => task.x);
+                // Step 2: Remove duplicates using Set
+                let hoursSpokenFor = [...new Set(hoursSpokenForTmp)];
+
                 for (let i = 0; i < task.frequency; i++) {
                     let matchFound = false
                     if (task.type=='A'){
