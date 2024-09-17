@@ -79,12 +79,12 @@
                     <select id="taskType${taskIndex}" name="taskType${taskIndex}">
                         <option value="A">X Times Per Day</option>
                         <option value="B">After Meal X</option>
-                        <option value="C">After Waking or Before Bed (X=1 for Bedtime)</option>
+                        <option value="C">After Waking or Before Bed (X=2 for Bedtime)</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="taskFrequency${taskIndex}">Value of X for Task ${taskIndex + 1}</label>
-                    <input type="number" id="taskFrequency${taskIndex}" name="taskFrequency${taskIndex}" min="1">
+                    <input type="number" id="taskFrequency${taskIndex}" name="taskFrequency${taskIndex}" value=2>
                 </div>
             `;
 
