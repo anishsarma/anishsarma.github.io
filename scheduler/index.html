@@ -190,7 +190,7 @@
                             let distances = thisRow.map(element => Math.abs(element - k));
                             // Step 2: Find the minimum distance using Math.min and spread syntax
                             let minDistance = Math.min(...distances);
-                            if (hoursSpokenFor.includes(k) && minDistance>mindist) {
+                            if (hoursSpokenFor.includes(k) && minDistance>=mindist) {
                                 currentHour = k;
                                 matchFound = true
                                 break
