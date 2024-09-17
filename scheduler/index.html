@@ -135,7 +135,15 @@
                         x: currentHour,
                         y: j
                     });
-                    currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                    if (task.type=='A'){
+                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                    }
+                    else if (task.type=='B'){
+                        currentHour = mealTimes[0]
+                    }
+                    else if (task.type=='C'){
+                        currentHour = wakingHoursEnd
+                    }
                     if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
                 }
             });
