@@ -130,6 +130,7 @@
             j=0;
             tasks.forEach(task => {
                 j++;
+                currentHour = wakingHoursStart;
                 if (task.type == 'A'){
                     runmax = task.frequency;
                 } else if (task.type == 'B'){
@@ -180,6 +181,7 @@
             j=0;
             tasks.forEach(task => {
                 j++;
+                currentHour = wakingHoursStart;
                 for (let i = 0; i < task.frequency; i++) {
                     if (task.type=='A'){
                         currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
