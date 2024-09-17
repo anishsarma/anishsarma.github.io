@@ -145,7 +145,7 @@
                 };
                 for (let i = 0; i < runmax; i++) {
                     if (task.type=='A'){
-                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                        currentHour += Math.round((wakingHoursEnd - wakingHoursStart) / task.frequency);
                         pushHour = false;
                     }
                     else if (task.type=='B'){
@@ -198,7 +198,8 @@
                             x: currentHour,
                             y: j
                         });
-                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                        currentHour += Math.round((wakingHoursEnd - wakingHoursStart) / task.frequency);
+
                     };
                 }
             });
