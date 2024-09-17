@@ -168,9 +168,9 @@
                 }
             });
             // Step 1: Extract all x values
-            let hoursSpokenFor = scheduledTasks.map(task => task.x);
+            let hoursSpokenForTmp = scheduledTasks.map(task => task.x);
             // Step 2: Remove duplicates using Set
-            hoursSpokenFor = [...new Set(hoursSpokenFor)];
+            let hoursSpokenFor = [...new Set(hoursSpokenForTmp)];
             console.log(hoursSpokenFor)
             return scheduledTasks;
         }
