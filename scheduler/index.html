@@ -145,7 +145,7 @@
                 };
                 for (let i = 0; i < runmax; i++) {
                     if (task.type=='A'){
-                        currentHour += Math.round((wakingHoursEnd - wakingHoursStart) / task.frequency);
+                        currentHour += Math.floor((wakingHoursEnd - wakingHoursStart) / task.frequency);
                         pushHour = false;
                     }
                     else if (task.type=='B'){
@@ -184,7 +184,7 @@
                 for (let i = 0; i < task.frequency; i++) {
                     let matchFound = false
                     if (task.type=='A'){
-                        for (let k=currentHour-1;k<24;k++){
+                        for (let k=currentHour;k<24;k++){
                             if (hoursSpokenFor.includes(k)) {
                                 console.log(k)
                                 currentHour = k;
@@ -196,7 +196,7 @@
                             x: currentHour,
                             y: j
                         });
-                        currentHour += Math.round((wakingHoursEnd - wakingHoursStart) / task.frequency);
+                        currentHour += Math.floor((wakingHoursEnd - wakingHoursStart) / task.frequency);
 
                     };
                 }
