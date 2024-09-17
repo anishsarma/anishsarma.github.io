@@ -187,8 +187,6 @@
                             if (hoursSpokenFor.includes(k)) {
                                 console.log(k)
                                 currentHour = k;
-                                currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
-                                console.log(currentHour)
                                 matchFound = true
                                 break
                             };
@@ -199,6 +197,7 @@
                             x: currentHour,
                             y: j
                         });
+                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                     };
                 }
             });
