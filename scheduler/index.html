@@ -183,7 +183,7 @@
                 for (let i = 0; i < task.frequency; i++) {
                     if (task.type=='A'){
                         currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
-                        for (let k=1;k=24;k++){
+                        for (let k=1;k<24;k++){
                             if (hoursSpokenFor.includes(k)) {
                                 currentHour = k;
                                 console.log(currentHour)
