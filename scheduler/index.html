@@ -176,16 +176,22 @@
             tasks.forEach(task => {
                 j++;
                 currentHour = wakingHoursStart;
+                mindist = Math.floor((wakingHoursEnd - wakingHoursStart) / task.frequency);
                 // Step 1: Extract all x values
                 let hoursSpokenForTmp = scheduledTasks.map(task => task.x);
                 // Step 2: Remove duplicates using Set
                 let hoursSpokenFor = [...new Set(hoursSpokenForTmp)];
                 console.log(hoursSpokenFor)
+                let thisRow = [];
                 for (let i = 0; i < task.frequency; i++) {
                     let matchFound = false
                     if (task.type=='A'){
                         for (let k=currentHour;k<24;k++){
-                            if (hoursSpokenFor.includes(k)) {
+                            // Step 1: Map each element to its absolute distance from k
+                            let distances = thisRow.map(element => Math.abs(element - k));
+                            // Step 2: Find the minimum distance using Math.min and spread syntax
+                            let minDistance = Math.min(...distances);
+                            if (hoursSpokenFor.includes(k) && minDistance>mindist) {
                                 console.log(k)
                                 currentHour = k;
                                 matchFound = true
@@ -196,7 +202,8 @@
                             x: currentHour,
                             y: j
                         });
-                        currentHour += Math.floor((wakingHoursEnd - wakingHoursStart) / task.frequency);
+                        thisRow.push(currentHour)
+                        currentHour += mindist;
                         if (currentHour > 24){currentHour=wakingHoursStart};
                     };
                 }
