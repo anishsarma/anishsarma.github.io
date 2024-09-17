@@ -177,6 +177,23 @@
             let hoursSpokenFor = [...new Set(hoursSpokenForTmp)];
             console.log(scheduledTasks)
             console.log(hoursSpokenFor)
+            j=0;
+            tasks.forEach(task => {
+                j++;
+                for (let i = 0; i < task.frequency; i++) {
+                    if (task.type=='A'){
+                        currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
+                   
+                    if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
+                    scheduledTasks.push({
+                        x: currentHour,
+                        y: j
+                    });
+                    };
+                    
+
+                }
+            });
             return scheduledTasks;
         }
 
