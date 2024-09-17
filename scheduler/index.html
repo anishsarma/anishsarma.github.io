@@ -161,7 +161,6 @@
                         }
                         pushHour = true;
                     }
-                    if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
                     if (pushHour){
                     scheduledTasks.push({
                         x: currentHour,
@@ -193,7 +192,6 @@
                                 break
                             };
                         };
-                        if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
                         scheduledTasks.push({
                             x: currentHour,
                             y: j
