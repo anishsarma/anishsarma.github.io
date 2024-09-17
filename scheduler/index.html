@@ -132,8 +132,10 @@
             tasks.forEach(task => {
                 j++
                 if task.type == 'A'{
-                    runmax = task.frequency
-                } else {runmax = 1}
+                    runmax = task.frequency;
+                } else {
+                    runmax = 1;
+                };
                 
                 for (let i = 0; i < runmax; i++) {
                     if (task.type=='A'){
