@@ -181,6 +181,7 @@
                 let hoursSpokenForTmp = scheduledTasks.map(task => task.x);
                 // Step 2: Remove duplicates using Set
                 let hoursSpokenFor = [...new Set(hoursSpokenForTmp)];
+                console.log(hoursSpokenFor)
                 for (let i = 0; i < task.frequency; i++) {
                     let matchFound = false
                     if (task.type=='A'){
