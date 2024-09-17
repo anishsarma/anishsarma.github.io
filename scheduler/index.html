@@ -196,13 +196,14 @@
                                 break
                             };
                         };
+                        if (!matchFound){currentHour+=mindist};
                         scheduledTasks.push({
                             x: currentHour,
                             y: j
                         });
                         thisRow.push(currentHour);
                         console.log(thisRow);
-                        currentHour += mindist;
+                        if (matchFound){currentHour += mindist};
                         if (currentHour > 24){currentHour=wakingHoursStart};
                     };
                 }
