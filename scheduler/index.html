@@ -197,7 +197,7 @@
                             y: j
                         });
                         currentHour += Math.floor((wakingHoursEnd - wakingHoursStart) / task.frequency);
-
+                        if (currentHour > 24){currentHour=wakingHoursStart};
                     };
                 }
             });
