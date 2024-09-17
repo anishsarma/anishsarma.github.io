@@ -131,10 +131,6 @@
             j=0;
             tasks.forEach(task => {j++
                 for (let i = 0; i < task.frequency; i++) {
-                    scheduledTasks.push({
-                        x: currentHour,
-                        y: j
-                    });
                     if (task.type=='A'){
                         currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                     }
@@ -145,6 +141,10 @@
                         currentHour = wakingHoursEnd
                     }
                     if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
+                    scheduledTasks.push({
+                        x: currentHour,
+                        y: j
+                    });
                 }
             });
 
