@@ -151,7 +151,7 @@
 
             // Map data points to datasets
             const datasets = [{
-                // label: 'Tasks',
+                label: 'Tasks',
                 data: dataPoints,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 borderColor: 'rgba(255, 99, 132, 1)',
@@ -171,7 +171,13 @@
                             max: 24,
                             ticks: {
                                 callback: function (value) {
-                                    return value < 12 ? `${value}am` : `${value - 12}pm`;
+                                    return value === 0 || value === 24 
+                                      ? '12am' 
+                                      : value < 12 
+                                        ? `${value}am` 
+                                        : value === 12 
+                                          ? '12pm' 
+                                          : `${value - 12}pm`;
                                 }
                             },
                             title: {
@@ -195,6 +201,9 @@
                         }
                     },
                     plugins: {
+                        legend: {
+                            display: false  // This turns off the legend
+                        }
                         annotation: {
                             annotations: {
                                 // Sleep hours shading
