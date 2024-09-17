@@ -182,15 +182,18 @@
                 currentHour = wakingHoursStart;
                 for (let i = 0; i < task.frequency; i++) {
                     if (task.type=='A'){
+                        let matchFound = false
                         for (let k=currentHour-1;k<24;k++){
                             if (hoursSpokenFor.includes(k)) {
                                 console.log(k)
                                 currentHour = k;
                                 currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency;
                                 console.log(currentHour)
+                                matchFound = true
                                 break
                             };
                         };
+                        if (!matchFound){currentHour += (wakingHoursEnd - wakingHoursStart) / task.frequency};
                         if (currentHour > wakingHoursEnd) currentHour = wakingHoursStart;
                         scheduledTasks.push({
                             x: currentHour,
