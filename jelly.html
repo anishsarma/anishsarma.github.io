@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0R6WGHXD1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X0R6WGHXD1');
+</script>
+        <title>Proliferation paper: odds and ends</title>
+        <meta charset="utf-8">
+               <link rel="stylesheet" href="main.css">
+    </head>
+    <body onload="toggleExtrasShow('shortlist','toggleshort');">
+        <script src="sort-table.js"></script>
+        
+        <h1>Proliferation paper: odds and ends</h1>
+
+A new paper from me, Lea Goentoro, and John Doyle published this week in <i>Proceedings of the National Academy of the Sciences</i>. The paper is titled “Proliferation as a natural strategy to suppress neoplasia.” It’s about cancer in jellyfish, cancer in people, and a few other things. 
+<br><br>
+The project had as an initial motivation the apparent cancer resistance of moon jellies. This old mystery that was reinvigorated by the discovery, in Thomas Bosch’s lab, that tumors rarely occur naturally in Hydra, and by the discovery, in Lea’s lab, that moon jellies selectively regenerate depending on lab-modulable environmental conditions. The biology of our distant jellyfish cousins could tell us something about the evolutionary origins of multicellularity, development, regeneration, and cancer. 
+<br><br>
+We expected the implications for human cancers to be remote, but as the mathematical model developed, we realized that it might also apply to human cancers. The ease with which the model mapped to biological prediction probably had to do with special things about jellies as a system (no vital organs, no adaptive immune system, plastic body plan, indeterminate growth, cold-bloodedness, and the previously mentioned lab-modulable regenerative capacity). But the actual phenomenon described by the model seemed like it might apply to any tissue. 
+<br><br>
+The paper reflects this shift in emphasis. I think we arrive at a pretty good, if partial, answer for why jellyfish don’t get cancer, and we arrive at some interesting questions about human cancers. For context, in observational evidence in humans, proliferative tissues tend to be cancer-prone (lung, liver, skin, colon). The common, plausible mechanistic explanation has been that cell proliferation potentiates mutation risk and therefore cancer risk. Yet this explanation faces the obvious problem that cancer does not appear, across all animals, to be inevitable. We then show that it is possible for cell proliferation to have the opposite effect, suppressing cancer, and that this is essential to how jellyfish achieve cancer resistance. We call this strategy proofreading<sup>1</sup>: making cells in excess to allow for stringent quality control through cell death. 
+<br><br>
+Do human tissues resist cancer the same way? This is at least plausible. It turns out that when the proofreading strategy fails, the tissues with the highest baseline proliferation rates will still be the tissues with the highest cancer risk. Because aging slows down proliferation globally, we would expect to see the same pattern of overall lifetime cancer risk as in the delaying model, with an exaggerated skew towards old age.  To some extent this simply relocates the question to why humans have a global slowdown in old age. But it also gives us more tools to think about prevention, and to think about the exceptions, like pediatric cancers. Rather than attributing these early incidence peaks to environmental exposures or inherited mutations, we can look for how the physiological  state of the tissue interacts with environmental exposures or inherited mutations. This might lead to different specific development-environment interactions for each tissue type or cancer subtype.
+<br><br>
+The paper is about cancer in jellyfish and cancer in humans, but to get there we borrowed, built on, and blended the biology concept of <i>tissue homeostasis</i> and the control theory concept of <i>robustness</i>. 
+<ol>
+<li>Tissue homeostasis: What processes and pathways (conserved or varied) do organisms use to build and maintain functioning tissue that withstands injury, infection, mutation, and other stressors across widely varying environments? 
+</li>
+<li>Robustness: What rules describe implementable systems, like tissues, made up of specialized rule-bound agents (cells) that move, coordinate, adapt, and replicate?
+</li>
+</ol>
+Over the past ten years or so, tissue homeostasis has been an intriguing conceptual meeting point between many lines of research. What does it take to build and maintain a tissue, as a whole? In the paper, we dial in on cell population size as a simple proxy for this question. By making this simplification, we consider the developmental biology, or stem cell biology, perspective on tissue homeostasis: here homeostasis means renewing the cell population that makes up the tissue by making more cells.
+<br><br>
+Much of the work of tissue homeostasis is also bound up in the work of the immune system. The same white blood cells that fight infections also orchestrate injury response, wound healing, scarring, cancer defense, even metabolic waste product disposal. In fact, many of the roles we attribute to white blood cells are also taken on by tissue-local (parenchymal) cells. A vivid example of this is the role of T cells in killing cancer: what the T cells actually do is trigger self-destruct pathways in the cancer cells. The self-destruct pathway precedes the evolution of T cells by hundreds of millions of years, yet we credit the T cell as the killer. The moon jellies use this self-destruct pathway to resist cancer without any T cells at all. So the jellyfish helped us see these two problems, one that we might typically think of as a development problem and one that we might typically think of as an immune problem, as two facets of one problem. Likewise, the results could help us think about development differently and they could help us think about immunology differently, because these distinctions matter to us more than they matter to biology. 
+<br><br>
+The problem has other facets, too. Tissue growth, regeneration, degeneration, and fibrosis are all important and intertwined biological processes that complicate our simple notion of population size homeostasis. So are metabolism and infection and autoimmunity. We needed mathematical models to get this far, and I think a strong mathematical foundation is essential for these more complex steps. 
+<br><br>
+<i>Robustness</i> is the ability of a system (and an associated model) to maintain its structure and function despite uncertainty (in the real-world environment or in the modeling assumptions). Robustness is a structural property of a system. There are many ways to model systems that can develop cancer, and they can look pretty different when they fail. But if you want to model a tissue that achieves homeostasis and suppresses cancer, you have to build that functionality into the structure of the model itself. Any of several (infinite) variations on the model all arrive at roughly the same place. Some modeling details become less important. Some parameters can vary by orders of magnitude. An experiment that breaks the robustness structure can act on any of several pathways, and the same robustness structure might be achieved by different molecular pathways in jellyfish and humans. The model is really, really simple, the smallest possible departure we could come up with from existing models. But we have good reason to believe, from testing varied other models and from our engagement with robust control theory, that more complex models would say the same thing.
+<br><br>
+This kind of two-level thinking about model structure is fundamental to control theory and multiscale modeling. In control theory, it can simultaneously be true that (1) there is a unique input-output function that achieves an objective or matches the data and (2) that infinitely many implementations could achieve that input-output function. Similarly, biology can be enormously constrained in function while remaining infinitely varied in implementation. By analogy, consider language and grammar: language is infinitely expressive, even to the point that it can accommodate entirely new words, but there are many sequences of words (actually, most) that are incompatible with meaning.  
+<br><br>
+We relied on a mix of theory, experience, and careful testing, which is roughly the state of the art of this kind of biological modeling. There are mathematical cases where we can (by hand or by computer) efficiently and provably determine whether a given structure is robust. If correct and applicable, these determinations are as constraining as, say, an understanding of gravity in determining whether or not a bird can fly. The set of all possible systems might take until the end of the universe to search, but the set of systems that could actually exist (i.e. be implemented in reality, i.e. are robust) might be searchable in an afternoon. So the work of theory is to define the set of systems we should search. There is much more to do here.
+</body>
+<footer>
+<p>sup>1</sup>In the paper, we use  “high-flux proofreading” to differentiate from other proofreading phenomena in biology (like during DNA replication and during ribosomal translation), but here I’ll just say proofreading.
+</footer>
+</html>
